@@ -1,5 +1,5 @@
 <div align="center">
-  ![React Router](react-router-logo.png)
+  <img src="react-router-logo.png" />
   <h1 align="center">React Router</h1>
 </div>
 ## Learning Objectives
