@@ -161,7 +161,7 @@ Using the above instructions as a guide, set up React Router in your own applica
 
 <details>
 <summary><strong>Solution</strong></summary>
-
+<br>
 To set up a new `Results` component:
 ```js
 import React, { Component } from 'react'
@@ -178,6 +178,52 @@ class Results extends Component {
 }
 
 export default Results
+```
+<br>
+
+To import and use it in `App.js`:
+```js
+import Results from '../Results/Results.js'
+```
+```js
+render() {
+  return(
+    <Router>
+      <div>
+        <nav>
+          <Link to="/search">Search</Link>
+          <Link to="/results">Results</Link>
+        </nav>
+        <main>
+          <Route
+            path="/search"
+            render={() => {
+              return(
+                <SearchContainer
+                  onSearchInput={(e) => this.handleSearchInput(e)}
+                  langOptions={this.state.langOptions}
+                  setSourceLang={(e) => this.setSourceLang(e)}
+                  setTargetLang={(e) => this.setTargetLang(e)}
+                  onSearchSubmit={(e) => this.handleSearchSubmit(e)}
+                  translation={this.state.translation}
+                />
+              )
+            }}
+          />
+          <Route
+            path="/results"
+            render={() => {
+              return(
+                <Results translation={this.state.translation}/>
+              )
+            }}
+          />
+        </main>
+      </div>
+    </Router>
+  )
+}
+
 ```
 
 </details>
