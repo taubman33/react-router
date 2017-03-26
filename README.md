@@ -157,7 +157,7 @@ render() {
 > Another benefit of using a callback in the render prop is that it preserves context, allowing us to pass down data and functions into `SearchContainer` in the same way as we have done previously.
 
 ## You do: Set up React Router and Add a Second Route
-Using the above instructions as a guide, set up React Router in your own application. Once you have the setup described above, create a new component named `Results`, import it into `App.js`, and set up a `Link` and `Route` for it in `App's` render method. Have the `Results` component simply display the `translation` property in `App`'s state.
+Using the above instructions as a guide, set up React Router in your own application. Once you have the setup described above, create a new component named `Results`, import it into `App.js`, and set up a `Link` and `Route` for it in `App's` render method. Have the `Results` component simply display the `translation` property in `App`'s state. Finally, remove the `translation` data from the `SearchContainer` component (as we are now rendering it in `Results`).
 
 <details>
 <summary><strong>Solution</strong></summary>
@@ -209,7 +209,6 @@ render() {
                   setSourceLang={(e) => this.setSourceLang(e)}
                   setTargetLang={(e) => this.setTargetLang(e)}
                   onSearchSubmit={(e) => this.handleSearchSubmit(e)}
-                  translation={this.state.translation}
                 />
               )
             }}
@@ -230,3 +229,149 @@ render() {
 ```
 
 </details>
+
+## Break (10 min)
+
+## I do: Redirecting
+
+Currently, we have to manually click on results after submitting a search to render the `Results` component and see the translation. Let's use React Router to force a redirect to `/results` once the search is finished. To do so, we need to import React Router's `Redirect` component.
+
+### Importing the Redirect Component
+
+```js
+// In App.js
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom'
+```
+
+Now we only want to redirect **after** the user has searched and the data has come back from the API. Fortunately, we already have a method that fires when this happen (`handleSearchSubmit()`). Let's update the promise on `handleSearchSubmit()` to set a new property on `state` that we can use to see if a user has searched.
+
+```js
+// In App.js
+
+handleSearchSubmit(e) {
+  e.preventDefault()
+  axios.get('https://watson-api-explorer.mybluemix.net/language-translator/api/v2/translate', {
+    params: {
+      source: this.state.sourceLang,
+      target: this.state.targetLang,
+      text: this.state.searchPhrase
+    }
+  }).then((response) => {
+    this.setState({
+      translation: response.data,
+      hasSearched: true
+    })
+  })
+}
+```
+
+Now whenever we get a response back from the API, `handleSearchSubmit` will both set the response to `translation` and set a `hasSearched` property to `true` on `state`.
+
+Since React automatically calls a re-rendering of any child components of a component whose state has been updated, we know that the `Route` for SearchContainer will be re-rendered. With that in mind, we can change the `render` property on the `Route` for the `Search` component to check if a user `hasSearched`, and if so, force it to `Redirect` to `/results`.
+
+```js
+// In App.js (the App component's render method)
+
+            <Route
+              path="/search"
+              render={() => {
+                if(this.state.hasSearched) {
+                  return <Redirect to="/results" />
+                }
+                return(
+                  <SearchContainer
+                    onSearchInput={(e) => this.handleSearchInput(e)}
+                    langOptions={this.state.langOptions}
+                    setSourceLang={(e) => this.setSourceLang(e)}
+                    setTargetLang={(e) => this.setTargetLang(e)}
+                    onSearchSubmit={(e) => this.handleSearchSubmit(e)}
+                  />
+                )
+              }}
+            />
+```
+
+Here what we are saying is when this route is rendered, check `App`'s state for `hasSearched`. If it is true, render a `<Redirect />` component instead of the `<SearchContainer />` component. The `<Redirect />` will then render whichever `Route` is associated with the `to` prop on it.
+
+However now we have another problem; once the `Redirect` takes us to the `Results` component, we are unable to go back to the `/search` to submit a new search (since `hasSearched` is still `true` on `App`'s state). We need a way to switch that back to `false` once `Results` has been rendered.
+
+### React Component Lifecycle Methods
+React components come preloaded with [many very useful methods](https://facebook.github.io/react/docs/react-component.html) to allow us to execute code before, during, or after a given component's rendering. In this case, we would like to update App's state **after** the `Results` component has rendered. To do so, we can use the `componentDidMount()` method inside of the results `Results` component to call a method to do just this:
+
+> For a full list of React Component methods, reach the [Documentation](https://facebook.github.io/react/docs/react-component.html)
+
+```js
+class Results extends Component {
+  componentDidMount() {
+    // Code to be executed once the Results component has finished rendering
+  }
+  render() {
+    return(
+      <div>
+        <h3>Translation: </h3>
+        <p>{this.props.translation}</p>
+      </div>
+    )
+  }
+}
+
+export default Results
+```
+
+However, we need to update the parent (`App`) component's state when `Results` renders. To accomplish this, let's create a method in `App` that sets `hasSearched` to false and then pass it down to `Results` via props:
+
+```js
+// In App.js (inside of the App component)
+
+clearSearch() {
+  this.setState({
+    hasSearched: false
+  })
+}
+
+
+// And then pass it via props to the Results component in the render method
+
+            <Route
+              path="/results"
+              render={() => {
+                return(
+                  <Results
+                    translation={this.state.translation}
+                    clearSearch={() => this.clearSearch()}
+                  />
+                )
+              }}
+            />
+```
+
+Lastly, call the `clearSearch()` method in `Results`:
+
+```js
+class Results extends Component {
+  componentDidMount() {
+    this.props.clearSearch()
+  }
+  render() {
+    return(
+      <div>
+        <h3>Translation: </h3>
+        <p>{this.props.translation}</p>
+      </div>
+    )
+  }
+}
+
+export default Results
+```
+
+Now we can navigate back and forth between `/results` and `/search` seamlessly.
+
+## You do: Import and Configure the Redirect Component
+Using the instructions above as a guide, import `Redirect` from `react-router-dom` and set-up your own app to redirect to `Results` when a user submits a search.
