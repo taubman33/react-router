@@ -161,7 +161,8 @@ Using the above instructions as a guide, set up React Router in your own applica
 
 <details>
 <summary><strong>Solution</strong></summary>
-<br>
+
+
 To set up a new `Results` component:
 ```js
 import React, { Component } from 'react'
@@ -180,15 +181,13 @@ class Results extends Component {
 export default Results
 ```
 
-<br />
-
-To import and use it in `App.js`:
+To import it in `App.js`:
 
 ```js
 import Results from '../Results/Results.js'
 ```
 
-<br />
+To setup a `Link` and `Route` to it:
 
 ```js
 render() {
@@ -228,7 +227,6 @@ render() {
     </Router>
   )
 }
-
 ```
 
 </details>
