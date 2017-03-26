@@ -2,6 +2,7 @@
   <img src="react-router-logo.png" />
   <h1 align="center">React Router</h1>
 </div>
+
 ## Learning Objectives
 - Import and use third-party node modules into React using npm (Node Package Manager)
 - Use `BrowserRouter`, `Link`, and `Route` to allow for navigation and URL manipulation
