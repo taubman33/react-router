@@ -160,7 +160,7 @@ render() {
 Using the above instructions as a guide, set up React Router in your own application. Once you have the setup described above, create a new component named `Results`, import it into `App.js`, and set up a `Link` and `Route` for it in `App's` render method. Have the `Results` component simply display the `translation` property in `App`'s state.
 
 <details>
-<summary><strong>Solution<strong></summary>
+<summary><strong>Solution</strong></summary>
 
 To set up a new `Results` component:
 ```js
