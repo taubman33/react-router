@@ -179,13 +179,17 @@ class Results extends Component {
 
 export default Results
 ```
+
 <br />
 
 To import and use it in `App.js`:
+
 ```js
 import Results from '../Results/Results.js'
 ```
+
 <br />
+
 ```js
 render() {
   return(
