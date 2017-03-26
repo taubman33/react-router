@@ -234,7 +234,7 @@ render() {
 
 ## I do: Redirecting
 
-Currently, we have to manually click on results after submitting a search to render the `Results` component and see the translation. Let's use React Router to force a redirect to `/results` once the search is finished. To do so, we need to import React Router's `Redirect` component.
+Currently, we have to manually click on `/results` after submitting a search to render the `Results` component and see the translation. Let's use React Router to force a redirect to `/results` once the search is finished. To do so, we need to import React Router's `Redirect` component.
 
 ### Importing the Redirect Component
 
@@ -249,7 +249,7 @@ import {
 } from 'react-router-dom'
 ```
 
-Now we only want to redirect **after** the user has searched and the data has come back from the API. Fortunately, we already have a method that fires when this happen (`handleSearchSubmit()`). Let's update the promise on `handleSearchSubmit()` to set a new property on `state` that we can use to see if a user has searched.
+We only want to redirect **after** the user has searched and the data has come back from the API. Fortunately, we already have a method that fires when this happen (`handleSearchSubmit()`). Let's update the promise on `handleSearchSubmit()` to set a new property on `state` that we can use to see if a user has searched.
 
 ```js
 // In App.js
@@ -297,14 +297,14 @@ Since React automatically calls a re-rendering of any child components of a comp
             />
 ```
 
-Here what we are saying is when this route is rendered, check `App`'s state for `hasSearched`. If it is true, render a `<Redirect />` component instead of the `<SearchContainer />` component. The `<Redirect />` will then render whichever `Route` is associated with the `to` prop on it.
+What we are saying here is when this route is rendered, check `App`'s state for `hasSearched`. If it is true, render a `<Redirect />` component instead of the `<SearchContainer />` component. The `<Redirect />` will then render whichever `Route` whose `path` matches the in the `to` prop.
 
-However now we have another problem; once the `Redirect` takes us to the `Results` component, we are unable to go back to the `/search` to submit a new search (since `hasSearched` is still `true` on `App`'s state). We need a way to switch that back to `false` once `Results` has been rendered.
+However, now we have another problem; once the `Redirect` takes us to the `Results` component, we are unable to go back to `/search` to submit a new search (since `hasSearched` is still `true` on `App`'s state). We need a way to switch that back to `false` once `Results` has been rendered.
 
 ### React Component Lifecycle Methods
-React components come preloaded with [many very useful methods](https://facebook.github.io/react/docs/react-component.html) to allow us to execute code before, during, or after a given component's rendering. In this case, we would like to update App's state **after** the `Results` component has rendered. To do so, we can use the `componentDidMount()` method inside of the results `Results` component to call a method to do just this:
+React components come preloaded with [many very useful methods](https://facebook.github.io/react/docs/react-component.html) to allow us to execute code before, during, or after a given component's rendering. In this case, we would like to update App's state **after** the `Results` component has rendered. To do so, we can use the `componentDidMount()` method inside of the `Results` component to call a method to do just this:
 
-> For a full list of React Component methods, reach the [Documentation](https://facebook.github.io/react/docs/react-component.html)
+> For a full list of React Component methods, read the [Documentation](https://facebook.github.io/react/docs/react-component.html)
 
 ```js
 class Results extends Component {
@@ -324,7 +324,7 @@ class Results extends Component {
 export default Results
 ```
 
-However, we need to update the parent (`App`) component's state when `Results` renders. To accomplish this, let's create a method in `App` that sets `hasSearched` to false and then pass it down to `Results` via props:
+We need to update the parent ( `App` ) component's state when `Results` renders. To accomplish this, let's create a method in `App` that sets `hasSearched` to false and then pass it down to `Results` via props:
 
 ```js
 // In App.js (inside of the App component)
@@ -351,7 +351,7 @@ clearSearch() {
             />
 ```
 
-Lastly, call the `clearSearch()` method in `Results`:
+Lastly, call the `clearSearch()` method inside of `componentDidMount()`:
 
 ```js
 class Results extends Component {
