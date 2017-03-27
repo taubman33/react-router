@@ -11,7 +11,7 @@
 
 
 ## Framing (10 min)
-Up to this point, our React applications have been limited in size, thus allowing us to use basic conditional logic in our components' render methods for changing component views. However, as our React applications grow in size and scope, we will want an easier and more robust way to set up navigation to multiples different component views. Additionally, we will want the ability to set information in the url parameters to make it easier for users to identify where they are in the application.
+Up to this point, our React applications have been limited in size, thus allowing us to use basic conditional logic in our components' render methods for changing component views. However, as our React applications grow in size and scope, we will want an easier and more robust way to set up navigation to different component views. Additionally, we will want the ability to set information in the url parameters to make it easier for users to identify where they are in the application.
 
 React Router, while not the only, is the most commonly-used routing library for React. It is relatively straightforward to configure and integrates with the component architecture nicely (itself being nothing but a collection of components). Once configured, it serves as the root component in a React application and renders other application components within itself depending on the path in the url.
 
@@ -28,14 +28,14 @@ npm run start
 ## You Do: Examine Current Codebase (15 min)
 Take 10 minutes and read through the code to familiarize yourself with the codebase. Then, with a partner, take 5 minutes and discuss your answers these questions:
 1. What dependencies is the application currently using? Where can I find information on them?
-2. What is the purpose of ReactDOM.render()? What file is this method being called in?
+2. What is the purpose of `ReactDOM.render()`? What file is this method being called in?
 3. Where are the components of our application located? Why might we want to separate them into their own folders?
-4. Where is the state of our application located? How is that state being passed down to other components?
+4. Where is state(s) located in our application? How is state being passed down to other components?
 5. Is data flowing up from child components to parent components anywhere in our application? How is this happening?
-
+6. Where is our application getting data from? How is it accomplishing this?
 
 ## An Aside: Axios (15 min)
-Axios is a node module commonly used with React to send HTTP requests to an API. It functions much like jQuery's Ajax method. Some benefits to using Axios:
+You may have noticed our application currently uses a module named `axios`. Axios is a node module commonly used with React to send HTTP requests to an API. It functions much like jQuery's Ajax method. Some benefits to using Axios:
 - It is a promise-based library which allows for a simpler and cleaner syntax
 - It is lightweight and focused solely on handling HTTP requests (as opposed to jQuery which brings in an extensive set of new functions and methods)
 - It is flexible and has a number of very useful methods for doing more complex requests from one or multiple API endpoints
@@ -82,7 +82,7 @@ You can also append values to the parameters by passing in a second input to `.g
 Which would result in a GET request to: `url?key1=value1&key2=value2`
 We will be using Axios to query the IBM Watson API in this exercise. Take 5 minutes to read and test out the Language Translator API at the link below.
 
-[IBM Watson API Explorer]((https://watson-api-explorer.mybluemix.net/))
+[IBM Watson API Explorer](https://watson-api-explorer.mybluemix.net/)
 
 
 ## I Do: React Router Setup (20 min)
@@ -290,7 +290,7 @@ handleSearchSubmit(e) {
 }
 ```
 
-Now whenever we get a response back from the API, `handleSearchSubmit` will both set the response to `translation` and set a `hasSearched` property to `true` on `state`.
+Now, whenever we get a response back from the API, `handleSearchSubmit` will both set the response to `translation` and set a `hasSearched` property to `true` on `state`.
 
 Since React automatically calls a re-rendering (of its virtual DOM) of any child components of a component whose state has been updated, we know that the `Route` for SearchContainer will be re-rendered. With that in mind, we can change the `render` property on the `Route` for the `Search` component to check if a user `hasSearched`, and if so, force it to `Redirect` to `/results`.
 
