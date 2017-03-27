@@ -9,20 +9,20 @@
 - Use `axios` to query APIs for data
 
 
-## Framing
+## Framing (10 min)
 
-## We Do: Setup
+## We Do: Setup (5 min)
 ```
 instructions
 ```
 
-## You Do: Examine Current Codebase
-Read through the code to familiarize yourself with the codebase. Then, with a partner, try to answer these questions:
+## You Do: Examine Current Codebase (10 min)
+Take 10 minutes and read through the code to familiarize yourself with the codebase. Then, with a partner, take 5 minutes and discuss your answers these questions:
 1. ...
 2. ...
 
 
-## An Aside: Axios
+## An Aside: Axios (15 min)
 Axios is a node module commonly used with React to send HTTP requests to an API. It functions much like jQuery's Ajax method. Some benefits to using Axios:
 - It is a promise-based library which allows for a simpler and cleaner syntax
 - It is lightweight and focused solely on handling HTTP requests (as opposed to jQuery which brings in an extensive set of new functions and methods)
@@ -66,11 +66,13 @@ You can also append values to the parameters by passing in a second input to `.g
   })
 ```
 Which would result in a GET request to: `url?key1=value1&key2=value2`
-We will be using Axios to query the [IMB Watson API](https://watson-api-explorer.mybluemix.net/) in this exercise.
+We will be using Axios to query the IBM Watson API in this exercise. Take 5 minutes to read and test out the Language Translator API at the link below.
+
+[IBM Watson API Explorer]((https://watson-api-explorer.mybluemix.net/))
 
 
-## I Do: React Router Setup
-Currently, we are rendering the response from Watson's Translator API service within the existing `SearchContainer` component. Let's bring in React Router and set up a separate component to display the results.
+## I Do: React Router Setup (20 min)
+Currently, we are rendering the response from Watson's Language Translator API service within the existing `SearchContainer` component. Let's bring in React Router and set up a separate component to display the results.
 
 ### Importing Dependencies
 
@@ -152,11 +154,11 @@ render() {
   )
 }
 ```
-> Notice that we are writing an anonymous callback function in the value for the `Route`'s render prop. This callback function must `return` a react component.
+> Notice that we are writing an anonymous callback function in the value for the `Route`'s render property. This callback function must `return` a react component.
 
-> Another benefit of using a callback in the render prop is that it preserves context, allowing us to pass down data and functions into `SearchContainer` in the same way as we have done previously.
+> Another benefit of using a callback in the render property is that it preserves context, allowing us to pass down data and functions into `SearchContainer` in the same way as we have done previously.
 
-## You do: Set up React Router and Add a Second Route
+## You do: Set up React Router and Add a Second Route (15 min)
 Using the above instructions as a guide, set up React Router in your own application. Once you have the setup described above, create a new component named `Results`, import it into `App.js`, and set up a `Link` and `Route` for it in `App's` render method. Have the `Results` component simply display the `translation` property in `App`'s state. Finally, remove the `translation` data from the `SearchContainer` component (as we are now rendering it in `Results`).
 
 <details>
@@ -232,7 +234,7 @@ render() {
 
 ## Break (10 min)
 
-## I do: Redirecting
+## I do: Redirecting (20 min)
 
 Currently, we have to manually click on `/results` after submitting a search to render the `Results` component and see the translation. Let's use React Router to force a redirect to `/results` once the search is finished. To do so, we need to import React Router's `Redirect` component.
 
@@ -273,7 +275,7 @@ handleSearchSubmit(e) {
 
 Now whenever we get a response back from the API, `handleSearchSubmit` will both set the response to `translation` and set a `hasSearched` property to `true` on `state`.
 
-Since React automatically calls a re-rendering of any child components of a component whose state has been updated, we know that the `Route` for SearchContainer will be re-rendered. With that in mind, we can change the `render` property on the `Route` for the `Search` component to check if a user `hasSearched`, and if so, force it to `Redirect` to `/results`.
+Since React automatically calls a re-rendering (of its virtual DOM) of any child components of a component whose state has been updated, we know that the `Route` for SearchContainer will be re-rendered. With that in mind, we can change the `render` property on the `Route` for the `Search` component to check if a user `hasSearched`, and if so, force it to `Redirect` to `/results`.
 
 ```js
 // In App.js (the App component's render method)
@@ -297,7 +299,7 @@ Since React automatically calls a re-rendering of any child components of a comp
             />
 ```
 
-What we are saying here is when this route is rendered, check `App`'s state for `hasSearched`. If it is true, render a `<Redirect />` component instead of the `<SearchContainer />` component. The `<Redirect />` will then render whichever `Route` whose `path` matches the in the `to` prop.
+What we are saying here is when this route is rendered, check `App`'s state for `hasSearched`. If it is true, render the `<Redirect />` component instead of the `<SearchContainer />` component. The `<Redirect />` component will then render whichever `Route` whose `path` matches its `to` property.
 
 However, now we have another problem; once the `Redirect` takes us to the `Results` component, we are unable to go back to `/search` to submit a new search (since `hasSearched` is still `true` on `App`'s state). We need a way to switch that back to `false` once `Results` has been rendered.
 
@@ -373,5 +375,15 @@ export default Results
 
 Now we can navigate back and forth between `/results` and `/search` seamlessly.
 
-## You do: Import and Configure the Redirect Component
+## You do: Import and Configure the Redirect Component (20 min)
 Using the instructions above as a guide, import `Redirect` from `react-router-dom` and set-up your own app to redirect to `Results` when a user submits a search.
+
+## You do: Add Pronunciation to the Results Component (20 min)
+Translating text into other languages is cool, but not that cool. Let's add some functionality to the Results component. Read the link below on IBM Watson's Text to Speech API and, using Axios to handle requests, update the Results component to:
+
+- Display the phonetic pronunciation of the translated phrase
+- Create an HTML5 audio element that plays a voice speaking the translation aloud
+
+> Hint: Give the component `state` and send off requests when the `componentDidMount()`
+
+## Closing (5 min)
