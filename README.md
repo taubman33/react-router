@@ -395,6 +395,23 @@ Now we can navigate back and forth between `/results` and `/search` seamlessly.
 ## You do: Import and Configure the Redirect Component (20 min)
 Using the instructions above as a guide, import `Redirect` from `react-router-dom` and set-up your own app to redirect to `Results` when a user submits a search.
 
+### Bonus: How might we setup a Route to handle requests to undefined paths?
+
+<details>
+<summary><strong>Solution</strong></summary>
+
+```js
+<Route
+  path="/*"
+  render={() => {
+    return <Redirect to="/search" />
+  }}
+/>
+```
+
+</details>
+
+
 ## Break (10 min)
 
 ## You do: Add Pronunciation to the Results Component (25 min)
