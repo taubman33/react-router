@@ -30,6 +30,8 @@ Axios is a node module commonly used with React to send HTTP requests to an API.
 
 [Axios Documentation](https://github.com/mzabriskie/axios)
 
+> Note: Axios is just one of many Javascript libraries that we could use for handling requests. One of the big selling points of Node is the ability to mix and match technologies according to preference. Other commonly-used libraries for handling requests are Fetch and jQuery.
+
 To load in the Axios module:
 ```js
 // If you are using Babel to compile your code
@@ -118,7 +120,7 @@ render() {
 > - **Router** - the root component inside of which all `Link`'s and `Route`'s must be nested. It can only have **one** direct child element (thus the need for the enclosing `div` tag around `nav` and `main`)
 
 
-> - **Link** - a component for setting the URL and providing navigation between different components in our app without triggering a page refresh (similar to Angular ui-router's `ui-sref`). It takes one property, `to`, which sets the URL to whatever path is defined within it.
+> - **Link** - a component for setting the URL and providing navigation between different components in our app without triggering a page refresh (similar to Angular ui-router's `ui-sref`). It takes a `to` property, which sets the URL to whatever path is defined within it. Link can also be used inside of any component that is connected to a `Route`.
 
 
 > - **Route** - a component that connects a certain `path` in the URL with the relevant component to `render` at that location (similar to Angular ui-router's `ui-view` or erb's `yield`)
@@ -159,7 +161,10 @@ render() {
 > Another benefit of using a callback in the render property is that it preserves context, allowing us to pass down data and functions into `SearchContainer` in the same way as we have done previously.
 
 ## You do: Set up React Router and Add a Second Route (15 min)
-Using the above instructions as a guide, set up React Router in your own application. Once you have the setup described above, create a new component named `Results`, import it into `App.js`, and set up a `Link` and `Route` for it in `App's` render method. Have the `Results` component simply display the `translation` property in `App`'s state. Finally, remove the `translation` data from the `SearchContainer` component (as we are now rendering it in `Results`).
+- Using the above instructions as a guide, set up React Router in your own application.
+- Once you have the setup described above, create a new component named `Results`, import it into `App.js`, and set up a `Link` and `Route` for it in `App's` render method.
+- Have the `Results` component simply display the `translation` property in `App`'s state.
+- Finally, remove the `translation` data from the `SearchContainer` component (as we are now rendering it in `Results`).
 
 <details>
 <summary><strong>Solution</strong></summary>
@@ -251,7 +256,7 @@ import {
 } from 'react-router-dom'
 ```
 
-We only want to redirect **after** the user has searched and the data has come back from the API. Fortunately, we already have a method that fires when this happen (`handleSearchSubmit()`). Let's update the promise on `handleSearchSubmit()` to set a new property on `state` that we can use to see if a user has searched.
+We only want to redirect **after** the user has searched and the data has come back from the API. Fortunately, we already have a method that fires when this happens (`handleSearchSubmit()`). Let's update the promise on `handleSearchSubmit()` to set a new property on `state` that we can use to see if a user has searched.
 
 ```js
 // In App.js
