@@ -395,6 +395,8 @@ Now we can navigate back and forth between `/results` and `/search` seamlessly.
 ## You do: Import and Configure the Redirect Component (20 min)
 Using the instructions above as a guide, import `Redirect` from `react-router-dom` and set-up your own app to redirect to `Results` when a user submits a search.
 
+## Break (10 min)
+
 ## You do: Add Pronunciation to the Results Component (25 min)
 Translating text into other languages is cool, but not that cool. Let's add some functionality to the Results component. Read the link below on IBM Watson's Text to Speech API and, using Axios to handle requests, update the Results component to:
 
