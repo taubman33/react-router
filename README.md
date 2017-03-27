@@ -10,7 +10,7 @@
 - Use `axios` to query APIs for data
 
 
-## Framing (10 min)
+## Framing (5 min)
 Up to this point, our React applications have been limited in size, thus allowing us to use basic conditional logic in our components' render methods for changing component views. However, as our React applications grow in size and scope, we will want an easier and more robust way to set up navigation to different component views. Additionally, we will want the ability to set information in the url parameters to make it easier for users to identify where they are in the application.
 
 React Router, while not the only, is the most commonly-used routing library for React. It is relatively straightforward to configure and integrates with the component architecture nicely (itself being nothing but a collection of components). Once configured, it serves as the root component in a React application and renders other application components within itself depending on the path in the url.
@@ -85,7 +85,7 @@ We will be using Axios to query the IBM Watson API in this exercise. Take 5 minu
 [IBM Watson API Explorer](https://watson-api-explorer.mybluemix.net/)
 
 
-## I Do: React Router Setup (20 min)
+## I Do: React Router Setup (10 min)
 Currently, we are rendering the response from Watson's Language Translator API service within the existing `SearchContainer` component. Let's bring in React Router and set up a separate component to display the results.
 
 ### Importing Dependencies
@@ -251,7 +251,7 @@ render() {
 
 ## Break (10 min)
 
-## I do: Redirecting (20 min)
+## I do: Redirecting (15 min)
 
 Currently, we have to manually click on `/results` after submitting a search to render the `Results` component and see the translation. Let's use React Router to force a redirect to `/results` once the search is finished. To do so, we need to import React Router's `Redirect` component.
 
