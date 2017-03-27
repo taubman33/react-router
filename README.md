@@ -5,21 +5,33 @@
 
 ## Learning Objectives
 - Import and use third-party node modules into React using npm (Node Package Manager)
-- Use `BrowserRouter`, `Link`, and `Route` to allow for navigation and URL manipulation
+- Use `BrowserRouter`, `Link`, `Route`, and `Redirect` to allow for navigation and URL manipulation
+- Define the React component lifecycle and use component methods to time API calls
 - Use `axios` to query APIs for data
 
 
 ## Framing (10 min)
+Up to this point, our React applications have been limited in size, thus allowing us to use basic conditional logic in our components' render methods for changing component views. However, as our React applications grow in size and scope, we will want an easier and more robust way to set up navigation to multiples different component views. Additionally, we will want the ability to set information in the url parameters to make it easier for users to identify where they are in the application.
+
+React Router, while not the only, is the most commonly-used routing library for React. It is relatively straightforward to configure and integrates with the component architecture nicely (itself being nothing but a collection of components). Once configured, it serves as the root component in a React application and renders other application components within itself depending on the path in the url.
+
 
 ## We Do: Setup (5 min)
 ```
-instructions
+git clone git@github.com:ga-wdi-exercises/react-translator.git
+cd react-translator
+npm install
+atom .
+npm run start
 ```
 
-## You Do: Examine Current Codebase (10 min)
+## You Do: Examine Current Codebase (15 min)
 Take 10 minutes and read through the code to familiarize yourself with the codebase. Then, with a partner, take 5 minutes and discuss your answers these questions:
-1. ...
-2. ...
+1. What dependencies is the application currently using? Where can I find information on them?
+2. What is the purpose of ReactDOM.render()? What file is this method being called in?
+3. Where are the components of our application located? Why might we want to separate them into their own folders?
+4. Where is the state of our application located? How is that state being passed down to other components?
+5. Is data flowing up from child components to parent components anywhere in our application? How is this happening?
 
 
 ## An Aside: Axios (15 min)
