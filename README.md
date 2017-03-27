@@ -395,14 +395,14 @@ Now we can navigate back and forth between `/results` and `/search` seamlessly.
 ## You do: Import and Configure the Redirect Component (20 min)
 Using the instructions above as a guide, import `Redirect` from `react-router-dom` and set-up your own app to redirect to `Results` when a user submits a search.
 
-## You do: Add Pronunciation to the Results Component (20 min)
+## You do: Add Pronunciation to the Results Component (25 min)
 Translating text into other languages is cool, but not that cool. Let's add some functionality to the Results component. Read the link below on IBM Watson's Text to Speech API and, using Axios to handle requests, update the Results component to:
-
-[IBM Watson Text to Speech API](https://watson-api-explorer.mybluemix.net/apis/text-to-speech-v1#/)
 
 - Show a drop-down of possible voices (nationalities) to select from using the API
 - Display the phonetic pronunciation of the translated phrase based on the selected voice
 - Create an HTML5 audio element that plays the selected voice speaking the translation aloud
+
+[IBM Watson Text to Speech API](https://watson-api-explorer.mybluemix.net/apis/text-to-speech-v1#/)
 
 > Hint: Give the component `state` and send off requests for any initially needed data when the `componentDidMount()`
 
@@ -510,4 +510,4 @@ export default Results
 </details>
 
 
-## Closing (5 min)
+## Closing / Questions (10 min)
