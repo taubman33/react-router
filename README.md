@@ -381,9 +381,116 @@ Using the instructions above as a guide, import `Redirect` from `react-router-do
 ## You do: Add Pronunciation to the Results Component (20 min)
 Translating text into other languages is cool, but not that cool. Let's add some functionality to the Results component. Read the link below on IBM Watson's Text to Speech API and, using Axios to handle requests, update the Results component to:
 
-- Display the phonetic pronunciation of the translated phrase
-- Create an HTML5 audio element that plays a voice speaking the translation aloud
+[IBM Watson Text to Speech API](https://watson-api-explorer.mybluemix.net/apis/text-to-speech-v1#/)
 
-> Hint: Give the component `state` and send off requests when the `componentDidMount()`
+- Show a drop-down of possible voices (nationalities) to select from using the API
+- Display the phonetic pronunciation of the translated phrase based on the selected voice
+- Create an HTML5 audio element that plays the selected voice speaking the translation aloud
+
+> Hint: Give the component `state` and send off requests for any initially needed data when the `componentDidMount()`
+
+<details>
+<summary><strong>Solution</strong></summary>
+
+```js
+// In Results.js
+
+import React, { Component } from 'react'
+import axios from 'axios'
+
+class Results extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      translation: this.props.translation,
+      voiceOptions: [],
+      selectedVoice: null,
+      textPronunciation: null,
+      audioPronunciationSource: null
+    }
+  }
+  componentDidMount() {
+    this.props.clearSearch()
+    this.getVoiceOptions()
+  }
+  getVoiceOptions() {
+    axios.get('https://watson-api-explorer.mybluemix.net/text-to-speech/api/v1/voices')
+      .then((response) => {
+        this.setState({
+          voiceOptions: response.data.voices
+        })
+      })
+  }
+  setVoice(e) {
+    this.setState({
+      selectedVoice: e.target.value
+    })
+  }
+
+  getTextPronunciation() {
+    axios.get('https://watson-api-explorer.mybluemix.net/text-to-speech/api/v1/pronunciation', {
+      params: {
+        text: this.state.translation,
+        voice: this.state.selectedVoice
+      }
+    })
+    .then((response) => {
+      this.setState({
+        textPronunciation: response.data.pronunciation
+      })
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
+  getAudioPronunciation() {
+    this.setState({
+      audioPronunciationSource: `https://watson-api-explorer.mybluemix.net/text-to-speech/api/v1/synthesize?text=${this.state.translation}&voice=${this.state.selectedVoice}`
+    })
+  }
+
+  getPronunciations(e) {
+    e.preventDefault()
+    this.getTextPronunciation()
+    this.getAudioPronunciation()
+  }
+  render() {
+    let voices = this.state.voiceOptions.map((voice, index) => {
+      return <option value={voice.name} key={index}>{voice.name}</option>
+    })
+    let audio =
+      this.state.audioPronunciationSource?
+      <audio controls>
+        <source type="audio/ogg" src={this.state.audioPronunciationSource}/>
+      </audio> :
+      null
+
+    return(
+      <div>
+        <h3>Translation: </h3>
+        <p>{this.state.translation}</p>
+
+        <h3>Get Pronunciation</h3>
+        <form onSubmit={(e) => this.getPronunciations(e)} >
+          <p>Choose Voice</p>
+          <select onChange={(e) => this.setVoice(e)}>
+            {voices}
+          </select>
+          <input type="submit" value="Select Voice"/>
+        </form>
+        <p>{this.state.textPronunciation}</p>
+        <p>{audio}</p>
+      </div>
+    )
+  }
+}
+
+export default Results
+
+```
+
+</details>
+
 
 ## Closing (5 min)
