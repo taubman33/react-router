@@ -408,7 +408,7 @@ Using the instructions above as a guide, import `Redirect` from `react-router-do
   }}
 />
 ```
-> Note: we have to put this less specific route **beneath** the other routes so that it checks all defined routes first
+> Note: we should put this less specific route **beneath** the other routes to indicate that it is a fallback route
 
 </details>
 
