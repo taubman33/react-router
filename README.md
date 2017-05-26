@@ -144,7 +144,7 @@ render() {
     <Router>
       <div>
         <nav>
-          <Link to="/search"></Link>   
+          <Link to="/search">Search</Link>   
         </nav>
         <main>
           <Route
@@ -420,11 +420,18 @@ Translating text into other languages is cool, but not that cool. Let's add some
 
 - Show a drop-down of possible voices (nationalities) to select from using the API
 - Display the phonetic pronunciation of the translated phrase based on the selected voice
-- Create an HTML5 audio element that plays the selected voice speaking the translation aloud
+- Create an [HTML5 audio element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) that plays the selected voice speaking the translation aloud
 
 [IBM Watson Text to Speech API](https://watson-api-explorer.mybluemix.net/apis/text-to-speech-v1#/)
 
 > Hint: Give the component `state` and send off requests for any initially needed data when the `componentDidMount()`
+
+Use the `voice-starter` branch to give you a kick-off point. This branch already fetches the voices list, the rest is up to you.
+```bash
+$ git checkout voice-starter
+$ npm install
+$ npm run start
+```
 
 <details>
 <summary><strong>Solution</strong></summary>
