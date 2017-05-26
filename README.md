@@ -426,7 +426,7 @@ Translating text into other languages is cool, but not that cool. Let's add some
 
 > Hint: Give the component `state` and send off requests for any initially needed data when the `componentDidMount()`
 
-Use the `voice-starter` branch to give you a kick-off point. This branch already fetches the voices list, the rest is up to you.
+Use the `voice-starter` branch to give you a kick-off point. This branch already fetches the voices list and populates the drop-down. The rest is up to you.
 ```bash
 $ git checkout voice-starter
 $ npm install
