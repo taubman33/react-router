@@ -10,13 +10,13 @@
 - Use `axios` to query APIs for data
 
 
-## Framing (5 min)
+## Framing (5 min / 0:05)
 Up to this point, our React applications have been limited in size, thus allowing us to use basic conditional logic in our components' render methods for changing component views. However, as our React applications grow in size and scope, we will want an easier and more robust way to set up navigation to different component views. Additionally, we will want the ability to set information in the url parameters to make it easier for users to identify where they are in the application.
 
 React Router, while not the only, is the most commonly-used routing library for React. It is relatively straightforward to configure and integrates with the component architecture nicely (itself being nothing but a collection of components). Once configured, it serves as the root component in a React application and renders other application components within itself depending on the path in the url.
 
 
-## We Do: Setup (5 min)
+## We Do: Setup (5 min / 0:10)
 ```
 git clone git@github.com:ga-wdi-exercises/react-translator.git
 cd react-translator
@@ -25,7 +25,7 @@ atom .
 npm run start
 ```
 
-## You Do: Examine Current Codebase (15 min)
+## You Do: Examine Current Codebase (15 min / 0:25)
 Take 10 minutes and read through the code to familiarize yourself with the codebase. Then, with a partner, take 5 minutes and discuss your answers these questions:
 1. What dependencies is the application currently using? Where can I find information on them?
 2. What is the purpose of `ReactDOM.render()`? What file is this method being called in?
@@ -34,7 +34,7 @@ Take 10 minutes and read through the code to familiarize yourself with the codeb
 5. Is data flowing up from child components to parent components anywhere in our application? How is this happening?
 6. Where is our application getting data from? How is it accomplishing this?
 
-## An Aside: Axios (15 min)
+## An Aside: Axios (15 min / 0:40)
 You may have noticed our application currently uses a module named `axios`. Axios is a node module commonly used with React to send HTTP requests to an API. It functions much like jQuery's Ajax method. Some benefits to using Axios:
 - It is a promise-based library which allows for a simpler and cleaner syntax
 - It is lightweight and focused solely on handling HTTP requests (as opposed to jQuery which brings in an extensive set of new functions and methods)
@@ -85,7 +85,7 @@ We will be using Axios to query the IBM Watson API in this exercise. Take 5 minu
 [IBM Watson API Explorer](https://watson-api-explorer.mybluemix.net/)
 
 
-## I Do: React Router Setup (10 min)
+## I Do: React Router Setup (10 min / 0:50)
 Currently, we are rendering the response from Watson's Language Translator API service within the existing `SearchContainer` component. Let's bring in React Router and set up a separate component to display the results.
 
 ### Importing Dependencies
@@ -144,7 +144,7 @@ render() {
     <Router>
       <div>
         <nav>
-          <Link to="/search"></Link>   
+          <Link to="/search">Search</Link>   
         </nav>
         <main>
           <Route
@@ -172,7 +172,7 @@ render() {
 
 > Another benefit of using a callback in the render property is that it preserves context, allowing us to pass down data and functions into `SearchContainer` in the same way as we have done previously.
 
-## You do: Set up React Router and Add a Second Route (15 min)
+## You do: Set up React Router and Add a Second Route (15 min / 1:05)
 - Using the above instructions as a guide, set up React Router in your own application.
 - Once you have the setup described above, create a new component named `Results`, import it into `App.js`, and set up a `Link` and `Route` for it in `App's` render method.
 - Have the `Results` component simply display the `translation` property in `App`'s state.
@@ -249,9 +249,9 @@ render() {
 
 </details>
 
-## Break (10 min)
+## Break (10 min / 1:25)
 
-## I do: Redirecting (15 min)
+## I do: Redirecting (15 min / 1:40)
 
 Currently, we have to manually click on `/results` after submitting a search to render the `Results` component and see the translation. Let's use React Router to force a redirect to `/results` once the search is finished. To do so, we need to import React Router's `Redirect` component.
 
@@ -392,7 +392,7 @@ export default Results
 
 Now we can navigate back and forth between `/results` and `/search` seamlessly.
 
-## You do: Import and Configure the Redirect Component (20 min)
+## You do: Import and Configure the Redirect Component (20 min / 2:00)
 Using the instructions above as a guide, import `Redirect` from `react-router-dom` and set-up your own app to redirect to `Results` when a user submits a search.
 
 ### Bonus: How might we setup a Route to handle requests to undefined paths?
@@ -413,18 +413,25 @@ Using the instructions above as a guide, import `Redirect` from `react-router-do
 </details>
 
 
-## Break (10 min)
+## Break (10 min / 2:10)
 
-## You do: Add Pronunciation to the Results Component (25 min)
+## You do: Add Pronunciation to the Results Component (25 min / 2:25)
 Translating text into other languages is cool, but not that cool. Let's add some functionality to the Results component. Read the link below on IBM Watson's Text to Speech API and, using Axios to handle requests, update the Results component to:
 
 - Show a drop-down of possible voices (nationalities) to select from using the API
 - Display the phonetic pronunciation of the translated phrase based on the selected voice
-- Create an HTML5 audio element that plays the selected voice speaking the translation aloud
+- Create an [HTML5 audio element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) that plays the selected voice speaking the translation aloud
 
 [IBM Watson Text to Speech API](https://watson-api-explorer.mybluemix.net/apis/text-to-speech-v1#/)
 
 > Hint: Give the component `state` and send off requests for any initially needed data when the `componentDidMount()`
+
+Use the `voice-starter` branch to give you a kick-off point. This branch already fetches the voices list and populates the drop-down. The rest is up to you.
+```bash
+$ git checkout voice-starter
+$ npm install
+$ npm run start
+```
 
 <details>
 <summary><strong>Solution</strong></summary>
