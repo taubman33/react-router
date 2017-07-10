@@ -27,24 +27,26 @@ npm run start
 
 ## You Do: Examine Current Codebase (15 min / 0:25)
 Take 10 minutes and read through the code to familiarize yourself with the codebase. Then, with a partner, take 5 minutes and discuss your answers these questions:
-1. What dependencies is the application currently using? Where can I find information on them?
-2. What is the purpose of `ReactDOM.render()`? What file is this method being called in?
-3. Where are the components of our application located? Why might we want to separate them into their own folders?
-4. Where is state(s) located in our application? How is state being passed down to other components?
-5. Is data flowing up from child components to parent components anywhere in our application? How is this happening?
-6. Where is our application getting data from? How is it accomplishing this?
+
+  1. What dependencies is the application currently using? Where can I find information on them?
+  2. What is the purpose of `ReactDOM.render()`? What file is this method being called in?
+  3. Where are the components of our application located? Why might we want to separate them into their own folders?
+  4. Where is state(s) located in our application? How is state being passed down to other components?
+  5. Is data flowing up from child components to parent components anywhere in our application? How is this happening?
+  6. Where is our application getting data from? How is it accomplishing this?
 
 ## An Aside: Axios (15 min / 0:40)
 You may have noticed our application currently uses a module named `axios`. Axios is a node module commonly used with React to send HTTP requests to an API. It functions much like jQuery's Ajax method. Some benefits to using Axios:
-- It is a promise-based library which allows for a simpler and cleaner syntax
-- It is lightweight and focused solely on handling HTTP requests (as opposed to jQuery which brings in an extensive set of new functions and methods)
-- It is flexible and has a number of very useful methods for doing more complex requests from one or multiple API endpoints
+
+  - It is a promise-based library with an interface for simpler and cleaner syntax
+  - It is lightweight and focused solely on handling HTTP requests (as opposed to jQuery which brings in an extensive set of new functions and methods)
+  - It is flexible and has a number of very useful methods for doing more complex requests from one or multiple API endpoints
 
 [Axios Documentation](https://github.com/mzabriskie/axios)
 
 > Note: Axios is just one of many Javascript libraries that we could use for handling requests. One of the big selling points of Node is the ability to mix and match technologies according to preference. Other commonly-used libraries for handling requests are Fetch and jQuery.
 
-To load in the Axios module:
+To load in the Axios module...
 ```js
 // If you are using Babel to compile your code
 import axios from 'axios'
@@ -53,7 +55,7 @@ import axios from 'axios'
 let axios = require('axios')
 ```
 
-To use Axios to query an API at a given url endpoint:
+To use Axios to query an API at a given url endpoint...
 ```js
   axios.get('url')
     .then((response) => {
@@ -64,7 +66,7 @@ To use Axios to query an API at a given url endpoint:
     })
 ```
 
-You can also append values to the parameters by passing in a second input to `.get()`:
+You can also append values to the parameters by passing in a second input to `.get()`...
 ```js
   axios.get('url', {
     params: {
@@ -90,12 +92,12 @@ Currently, we are rendering the response from Watson's Language Translator API s
 
 ### Importing Dependencies
 
-First, we need to install `react-router-dom` and save it as a dependency to `package.json`:
+First, we need to install `react-router-dom` and save it as a dependency to `package.json`...
 ```
 npm install --save react-router-dom
 ```
 
-Then, in `App.js`, we need to import all of the components we want to use from React Router:
+Then, in `App.js`, we need to import all of the components we want to use from React Router...
 ```js
 // App.js
 
@@ -108,7 +110,7 @@ import {
 > Note that we are aliasing `BrowserRouter` as `Router` here for simplicity
 
 ### Modifying App's render method
-Now that we have access to these components, we need to modify the `App` component's `render()` method to set up navigation. The basic structure we will use is:
+Now that we have access to these components, we need to modify the `App` component's `render()` method to set up navigation. The basic structure we will use is...
 ```js
 // App.js
 
@@ -137,7 +139,7 @@ render() {
 
 > - **Route** - a component that connects a certain `path` in the URL with the relevant component to `render` at that location (similar to Angular ui-router's `ui-view` or erb's `yield`)
 
-Now let's customize this structure to provide a link to our current component `SearchContainer`:
+Now let's customize this structure to provide a link to our current component `SearchContainer`...
 ```js
 render() {
   return (
@@ -174,7 +176,7 @@ render() {
 
 ## You do: Set up React Router and Add a Second Route (15 min / 1:05)
 - Using the above instructions as a guide, set up React Router in your own application.
-- Once you have the setup described above, create a new component named `Results`, import it into `App.js`, and set up a `Link` and `Route` for it in `App's` render method.
+- Once you have the setup described above, create a new component named `Results`, import it into `App.js`, and set up a `Link` and `Route` for it in `App`'s render method.
 - Have the `Results` component simply display the `translation` property in `App`'s state.
 - Finally, remove the `translation` data from the `SearchContainer` component (as we are now rendering it in `Results`).
 
@@ -182,7 +184,7 @@ render() {
 <summary><strong>Solution</strong></summary>
 
 
-To set up a new `Results` component:
+To set up a new `Results` component...
 ```js
 import React, { Component } from 'react'
 
@@ -200,13 +202,13 @@ class Results extends Component {
 export default Results
 ```
 
-To import it in `App.js`:
+To import it in `App.js`...
 
 ```js
 import Results from '../Results/Results.js'
 ```
 
-To setup a `Link` and `Route` to it:
+To setup a `Link` and matching `Route`...
 
 ```js
 render() {
@@ -321,7 +323,7 @@ What we are saying here is when this route is rendered, check `App`'s state for 
 However, now we have another problem; once the `Redirect` takes us to the `Results` component, we are unable to go back to `/search` to submit a new search (since `hasSearched` is still `true` on `App`'s state). We need a way to switch that back to `false` once `Results` has been rendered.
 
 ### React Component Lifecycle Methods
-React components come preloaded with [many very useful methods](https://facebook.github.io/react/docs/react-component.html) to allow us to execute code before, during, or after a given component's rendering. In this case, we would like to update App's state **after** the `Results` component has rendered. To do so, we can use the `componentDidMount()` method inside of the `Results` component to call a method to do just this:
+React components come preloaded with [many very useful methods](https://facebook.github.io/react/docs/react-component.html) to allow us to execute code before, during, or after a given component's rendering. In this case, we would like to update `App`'s state **after** the `Results` component has rendered. To do so, we can use the `componentDidMount()` method inside of the `Results` component to call a method to do just this...
 
 > For a full list of React Component methods, read the [Documentation](https://facebook.github.io/react/docs/react-component.html)
 
@@ -343,7 +345,7 @@ class Results extends Component {
 export default Results
 ```
 
-We need to update the parent ( `App` ) component's state when `Results` renders. To accomplish this, let's create a method in `App` that sets `hasSearched` to false and then pass it down to `Results` via props:
+We need to update the parent ( `App` ) component's state when `Results` renders. To accomplish this, let's create a method in `App` that sets `hasSearched` to false and then pass it down to `Results` via props...
 
 ```js
 // In App.js (inside of the App component)
@@ -370,7 +372,7 @@ clearSearch() {
             />
 ```
 
-Lastly, call the `clearSearch()` method inside of `componentDidMount()`:
+Lastly, call the `clearSearch()` method inside of `componentDidMount()`...
 
 ```js
 class Results extends Component {
@@ -418,9 +420,9 @@ Using the instructions above as a guide, import `Redirect` from `react-router-do
 ## You do: Add Pronunciation to the Results Component (25 min / 2:25)
 Translating text into other languages is cool, but not that cool. Let's add some functionality to the Results component. Read the link below on IBM Watson's Text to Speech API and, using Axios to handle requests, update the Results component to:
 
-- Show a drop-down of possible voices (nationalities) to select from using the API
-- Display the phonetic pronunciation of the translated phrase based on the selected voice
-- Create an [HTML5 audio element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) that plays the selected voice speaking the translation aloud
+  - Show a drop-down of possible voices (nationalities) to select from using the API
+  - Display the phonetic pronunciation of the translated phrase based on the selected voice
+  - Create an [HTML5 audio element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) that plays the selected voice speaking the translation aloud
 
 [IBM Watson Text to Speech API](https://watson-api-explorer.mybluemix.net/apis/text-to-speech-v1#/)
 
