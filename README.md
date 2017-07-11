@@ -11,13 +11,15 @@
 
 
 ## Framing (5 min / 0:05)
+
 Up to this point, our React applications have been limited in size, thus allowing us to use basic conditional logic in our components' render methods for changing component views. However, as our React applications grow in size and scope, we will want an easier and more robust way to set up navigation to different component views. Additionally, we will want the ability to set information in the url parameters to make it easier for users to identify where they are in the application.
 
 React Router, while not the only, is the most commonly-used routing library for React. It is relatively straightforward to configure and integrates with the component architecture nicely (itself being nothing but a collection of components). Once configured, it serves as the root component in a React application and renders other application components within itself depending on the path in the url.
 
 
 ## We Do: Setup (5 min / 0:10)
-```
+
+```sh
 git clone git@github.com:ga-wdi-exercises/react-translator.git
 cd react-translator
 npm install
@@ -26,7 +28,7 @@ npm run start
 ```
 
 ## You Do: Examine Current Codebase (15 min / 0:25)
-Take 10 minutes and read through the code to familiarize yourself with the codebase. Then, with a partner, take 5 minutes and discuss your answers these questions:
+Take 10 minutes and read through the code to familiarize yourself with the codebase with a partner, or in groups of 3. Prepare to discuss your answers the following questions:
 
   1. What dependencies is the application currently using? Where can I find information on them?
   2. What is the purpose of `ReactDOM.render()`? What file is this method being called in?
@@ -36,6 +38,7 @@ Take 10 minutes and read through the code to familiarize yourself with the codeb
   6. Where is our application getting data from? How is it accomplishing this?
 
 ## An Aside: Axios (15 min / 0:40)
+
 You may have noticed our application currently uses a module named `axios`. Axios is a node module commonly used with React to send HTTP requests to an API. It functions much like jQuery's Ajax method. Some benefits to using Axios:
 
   - It is a promise-based library with an interface for simpler and cleaner syntax
@@ -47,6 +50,7 @@ You may have noticed our application currently uses a module named `axios`. Axio
 > Note: Axios is just one of many Javascript libraries that we could use for handling requests. One of the big selling points of Node is the ability to mix and match technologies according to preference. Other commonly-used libraries for handling requests are Fetch and jQuery.
 
 To load in the Axios module...
+
 ```js
 // If you are using Babel to compile your code
 import axios from 'axios'
@@ -81,10 +85,11 @@ You can also append values to the parameters by passing in a second input to `.g
     console.log(error)
   })
 ```
+
 Which would result in a GET request to: `url?key1=value1&key2=value2`
 We will be using Axios to query the IBM Watson API in this exercise. Take 5 minutes to read and test out the Language Translator API at the link below.
 
-[IBM Watson API Explorer](https://watson-api-explorer.mybluemix.net/)
+[General IBM Watson API Explorer](https://watson-api-explorer.mybluemix.net/)
 
 
 ## I Do: React Router Setup (10 min / 0:50)
