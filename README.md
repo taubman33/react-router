@@ -5,7 +5,7 @@
 
 ## Learning Objectives
 - Import and use third-party node modules into React using npm (Node Package Manager)
-- Use `BrowserRouter`, `Link`, `Route`, and `Redirect` to allow for navigation and URL manipulation
+- Use `BrowserRouter`, `Link`, `Route`, `Redirect`, and `Switch` to allow for navigation and URL manipulation
 - Define the React component lifecycle and use component methods to time API calls
 - Use `axios` to query APIs for data
 
@@ -104,7 +104,7 @@ npm install --save react-router-dom
 
 Then, in `App.js`, we need to import all of the components we want to use from React Router...
 ```js
-// App.js
+// src/components/App/App.js
 
 import {
   BrowserRouter as Router,
@@ -117,7 +117,7 @@ import {
 ### Modifying App's render method
 Now that we have access to these components, we need to modify the `App` component's `render()` method to set up navigation. The basic structure we will use is...
 ```js
-// App.js
+// src/components/App/App.js
 
 render() {
   return (
@@ -146,7 +146,7 @@ render() {
 
 Now let's customize `App`'s render method to provide a link to `Search`...
 ```js
-// App/App.js
+// src/components/App/App.js
 
 render() {
   return(
@@ -162,8 +162,8 @@ render() {
             render={() => {
               return (
                 <Search
-                translation={ this.state.translation }
-                setTranslation={ (data) => this.setTranslation(data) }
+                  translation={ this.state.translation }
+                  setTranslation={ (data) => this.setTranslation(data) }
                 />
               )
             }}
@@ -179,6 +179,8 @@ render() {
 > So long as we use an ES6 arrow function, this callback will preserve context, allowing us to pass down data and functions into `Search` from `App`. You can use an ES5 anonymous function, but you will then need to use `.bind()` to preserve context.
 
 ## You do: Set up React Router and Add a Second Route (15 min / 1:05)
+> 10 minute exercise / 5 minute review
+
 - Using the above instructions as a guide, set up React Router in your own application.
 - Once you have the setup described above, create a new component named `Results`, import it into `App.js`, and set up a `Link` and `Route` for it in `App`'s render method.
 - Have the `Results` component display the `translation` property in `App`'s state by passing it to `Results` via props.
@@ -190,6 +192,8 @@ render() {
 
 To set up a new `Results` component...
 ```js
+// src/components/Results/Results.js
+
 import React, { Component } from 'react'
 
 class Results extends Component {
@@ -209,13 +213,15 @@ export default Results
 To import it in `App.js`...
 
 ```js
+// src/components/App/App.js
+
 import Results from '../Results/Results.js'
 ```
 
 To setup a `Link` and matching `Route`...
 
 ```js
-// App/App.js
+// src/components/App/App.js
 
 render() {
   return(
@@ -265,7 +271,7 @@ Currently, we have to manually click on `/results` after submitting a search to 
 The `history` object is provided automatically via props from `Router`. To expose and use it, all we need to do is to modify the `render` prop on any `Route` whose rendered component will need access to it. In our case, this will be the `Search` component:
 
 ```js
-// App/App.js
+// src/components/App/App.js
 
 <Route
   path="/search"
@@ -286,6 +292,8 @@ The `history` object is provided automatically via props from `Router`. To expos
 Now that we have passed the `history` object down to `Search` via props, we can use it to programmatically set the url path from within `Search` thereby causing `Results` to be rendered:
 
 ```js
+// src/components/Search/Search.js
+
 handleSearchSubmit(e) {
   e.preventDefault()
   axios.get('https://watson-api-explorer.mybluemix.net/language-translator/api/v2/translate', {
@@ -312,7 +320,7 @@ handleSearchSubmit(e) {
 
 Using the instructions above as a guide, expose and pass the `history` object to `Search` and set-up your own app to redirect to `Results` when a user submits a search.
 
-### Bonus: Redirect to Search from Results if `translation` is `null`
+### Bonus: Redirect to `Search` from `Results` if `translation` is `null`
 Currently, if the user does a hard refresh while at `/results`, the component will simply render a blank translation. How could we use the `history` object to tell it to redirect to `/search` (similar to how we did above) if the `translation` prop is `null`?
 > Hint: Look into React's component lifecycle hook [componentDidMount](https://facebook.github.io/react/docs/react-component.html#componentdidmount)
 
@@ -322,7 +330,7 @@ Currently, if the user does a hard refresh while at `/results`, the component wi
 First, we need to pass `history` into `Results` just like we did with `Search`:
 
 ```js
-// App/App.js
+// src/components/App/App.js
 
 <Route
   path="/results"
@@ -340,6 +348,8 @@ First, we need to pass `history` into `Results` just like we did with `Search`:
 Then, within `Results`, we can use `componentDidMount` to check the translation prop once the component has initialized. If it is `null`, we can use `history` to redirect to `/search`:
 
 ```js
+// src/components/Results/Results.js
+
 componentDidMount () {
   if (!this.props.translation) {
     this.props.history.push('/search')
@@ -354,13 +364,13 @@ componentDidMount () {
 
 
 ## We do: Using the Redirect Component (15 min / 2:05)
-Another edge case we want to control for is when the user submits a request at a url that we have not set up a `Route` for. To handle this, React Router provides a `Redirect` component that when returned, tells the browser to change the url to that of one of our recognized `Route`s:
+Another edge case we want to control for is when the user submits a request at a url that we have not set up a `Route` for. To handle this, React Router provides a `Redirect` component that when returned, tells the browser to change the url to that of one of our recognized routes:
 
 
 ### Importing the Redirect Component
 To import the `Redirect` component, update your `import` statement in `App.js` as such:
 ```js
-// In App.js
+// src/components/App/App.js
 
 import {
   BrowserRouter as Router,
@@ -373,6 +383,8 @@ import {
 Then set up a catch-all `Route` in `App`'s render method that will render it. Make sure to add it **below** the other `Route` definitions:
 
 ```js
+// src/components/App/App.js
+
 <Route
   path="/*"
   render={() => {
@@ -388,6 +400,8 @@ Once we refresh the page, we will see an error in the console saying that we are
 First, import it from `react-router-dom`:
 
 ```js
+// src/components/App/App.js
+
 import {
   BrowserRouter as Router,
   Route,
@@ -400,7 +414,7 @@ import {
 Then, wrap **ALL** of our `Route` components within a `Switch` component:
 
 ```js
-// App/App.js
+// src/components/App/App.js
 
 <Switch>
   <Route
@@ -451,12 +465,13 @@ In order to use get audio from the `/v1/synthesize` endpoint of the Text-to-Spee
 To provide a selected voice in the request, we will first need to retrieve the list of possible voices from the API's `/v1/voices` endpoint. First, let's import `axios` in `Results` and then let's send the request from `Results`'s `componentDidMount` method:
 
 ```js
-// Results/Result.js
+// src/components/Results/Result.js
+
 import axios from 'axios'
 ```
 
 ```js
-// Results/Results.js
+// src/components/Results/Results.js
 
 componentDidMount () {
   if (!this.props.translation) {
@@ -483,7 +498,7 @@ If we inspect the API response in the console, we can see that the `voices` arra
 One of the easiest ways to do this would be to simply add a second argument to `setTranslation` representing the language of the translation:
 
 ```js
-// App/App.js
+// src/components/App/App.js
 
 setTranslation (data, language) {
   this.setState({
@@ -495,7 +510,7 @@ setTranslation (data, language) {
 
 We also will need to add this second argument to the callback we pass to `Search`:
 ```js
-// App/App.js
+// src/components/App/App.js
 
 <Route
   path="/search"
@@ -537,10 +552,12 @@ handleSearchSubmit(e) {
 
 </details>
 
+<hr />
+
 Now that the we have a `language` property on the `App`'s state, let's pass it via props into `Results` so we can use it to filter the array of voices we are retrieving:
 
 ```js
-// App/App.js
+// src/components/App/App.js
 
 <Route
   path="/results"
@@ -559,7 +576,7 @@ Now that the we have a `language` property on the `App`'s state, let's pass it v
 Then let's update `Results`'s `componentDidMount` method to use this information to find the voice that relates to the language we chose:
 
 ```js
-// Results/Results.js
+// src/components/results/Results.js
 
 constructor () {
   super()
@@ -591,7 +608,7 @@ componentDidMount () {
 Finally, let's update `Results`'s `render` method to create an `audio` element with a `src` equal to the `voiceAudioSource` set on `state`:
 
 ```js
-// Results/Results.js
+// src/components/Results/Results.js
 
 render () {
   let audio =
