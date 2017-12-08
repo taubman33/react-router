@@ -4,9 +4,9 @@
 </div>
 
 ## Learning Objectives
-- Import and use third-party node modules into React using npm (Node Package Manager)
-- Use `BrowserRouter`, `Link`, `Route`, `Redirect`, and `Switch` to allow for navigation and URL manipulation
-- Define the React component lifecycle and use component methods to time API calls
+- Review importing and using third-party node modules into React using npm (Node Package Manager)
+- Use React Router's `BrowserRouter`, `Link`, `Route`, `Redirect`, and `Switch` components to allow for navigation and URL manipulation
+- Review the React component lifecycle and use component methods to time API calls
 - Use `axios` to query APIs for data
 
 
@@ -20,10 +20,9 @@ React Router, while not the only, is the most commonly-used routing library for 
 ## We Do: Setup (5 min / 0:10)
 
 ```sh
-git clone git@github.com:ga-wdi-exercises/react-translator.git
+git clone git@git.generalassemb.ly:ga-wdi-exercises/react-translator.git
 cd react-translator
 npm install
-atom .
 npm run start
 ```
 
@@ -37,62 +36,14 @@ Take 10 minutes and read through the code to familiarize yourself with the codeb
   5. Is data flowing up from child components to parent components anywhere in our application? How is this happening?
   6. Where is our application getting data from? How is it accomplishing this?
 
-## An Aside: Axios (15 min / 0:40)
+## Axios & Watson API (5 min / 0:30)
 
-You may have noticed our application currently uses a module named `axios`. Axios is a node module commonly used with React to send HTTP requests to an API. It functions much like jQuery's Ajax method. Some benefits to using Axios:
-
-  - It is a promise-based library with an interface for simpler and cleaner syntax
-  - It is lightweight and focused solely on handling HTTP requests (as opposed to jQuery which brings in an extensive set of new functions and methods)
-  - It is flexible and has a number of very useful methods for doing more complex requests from one or multiple API endpoints
-
-[Axios Documentation](https://github.com/mzabriskie/axios)
-
-> Note: Axios is just one of many Javascript libraries that we could use for handling requests. One of the big selling points of Node is the ability to mix and match technologies according to preference. Other commonly-used tools for handling requests are Fetch and jQuery.
-
-To load in the Axios module...
-
-```js
-// If you are using Babel to compile your code
-import axios from 'axios'
-
-// In standard vanilla Javascript
-let axios = require('axios')
-```
-
-To use Axios to query an API at a given url endpoint...
-```js
-  axios.get('url')
-    .then((response) => {
-      console.log(response)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-```
-
-You can also append values to the parameters by passing in a second input to `.get()`...
-```js
-  axios.get('url', {
-    params: {
-      key1: value1,
-      key2: value2
-    }
-  })
-  .then((response) => {
-    console.log(response)
-  })
-  .catch((error) => {
-    console.log(error)
-  })
-```
-
-Which would result in a GET request to: `url?key1=value1&key2=value2`
-We will be using Axios to query the IBM Watson API in this exercise. Take 5 minutes to read and test out the Language Translator API at the link below.
+We are currently using [Axios](https://github.com/axios/axios) to query the IBM Watson API in this exercise. Take 5 minutes to read and test out the Language Translator API at the link below.
 
 [General IBM Watson API Explorer](https://watson-api-explorer.mybluemix.net/)
 
 
-## I Do: React Router Setup (10 min / 0:50)
+## I Do: React Router Setup (10 min / 0:40)
 Currently, we are rendering the response from Watson's Language Translator API service within the existing `Search` component. Let's bring in React Router and set up a separate component to display the results.
 
 ### Importing Dependencies
@@ -102,17 +53,38 @@ First, we need to install `react-router-dom` and save it as a dependency to `pac
 npm install --save react-router-dom
 ```
 
-Then, in `App.js`, we need to import all of the components we want to use from React Router...
+To configure our current application to use React Router, we need to modify the root rendering of our app in `index.js`. We need to bring in the `Router` component and allow it to be the root component of our application. `Router` will, in turn, render `App` through which all the rest of our components will be rendered:
+
+```js
+// index.js
+
+import {
+  BrowserRouter as Router
+} from 'react-router-dom'
+
+// ...
+
+ReactDOM.render(
+  <Router>
+    <App />
+  </Router>,
+  document.getElementById('root')
+);
+```
+> Note that we are aliasing `BrowserRouter` as `Router` here for simplicity
+
+By making `Router` the root component of our app, all child components, including `App` will have access to a `history` object through which information like the current location and url can be accessed or changed. Additionally, in order to use the other routing components provided by React Router, a `Router` ancestor component is neccessary.
+
+Next, in `App.js`, we need to import all of the other components we want to use from React Router...
+
 ```js
 // src/components/App/App.js
 
 import {
-  BrowserRouter as Router,
   Route,
-  Link,
+  Link
 } from 'react-router-dom'
 ```
-> Note that we are aliasing `BrowserRouter` as `Router` here for simplicity
 
 ### Modifying App's render method
 Now that we have access to these components, we need to modify the `App` component's `render()` method to set up navigation. The basic structure we will use is...
@@ -121,28 +93,23 @@ Now that we have access to these components, we need to modify the `App` compone
 
 render() {
   return (
-    <Router>
-      <div>
-        <nav>
-          <Link to=""></Link>
-          <Link to=""></Link>          
-        </nav>
-        <main>
-          <Route path="" render={}/>
-          <Route path="" render={}/>
-        </main>
-      </div>
-    </Router>
+    <div>
+      <nav>
+        <Link to=""></Link>
+        <Link to=""></Link>          
+      </nav>
+      <main>
+        <Route path="" render={}/>
+        <Route path="" render={}/>
+      </main>
+    </div>
   )
 }
 ```
-> - **Router** - the root component inside of which all `Link`'s and `Route`'s must be nested. It can only have **one** direct child element (thus the need for the enclosing `div` tag around `nav` and `main`)
 
+> - **Link** - a component for setting the URL and providing navigation between different components in our app without triggering a page refresh. It takes a `to` property, which sets the URL to whatever path is defined within it. Link can also be used inside of any component that is connected to a `Route`.
 
-> - **Link** - a component for setting the URL and providing navigation between different components in our app without triggering a page refresh (similar to Angular ui-router's `ui-sref`). It takes a `to` property, which sets the URL to whatever path is defined within it. Link can also be used inside of any component that is connected to a `Route`.
-
-
-> - **Route** - a component that connects a certain `path` in the URL with the relevant component to `render` at that location (similar to Angular ui-router's `ui-view` or erb's `yield`)
+> - **Route** - a component that connects a certain `path` in the URL with the relevant component to `render` at that location (similar to erb's `yield`).
 
 Now let's customize `App`'s render method to provide a link to `Search`...
 ```js
@@ -150,35 +117,31 @@ Now let's customize `App`'s render method to provide a link to `Search`...
 
 render() {
   return(
-    <Router>
-      <div>
-        <nav>
-          <h1>React Translator</h1>
-          <Link to="/search">Search</Link>
-        </nav>
-        <main>
-          <Route
-            path="/search"
-            render={() => {
-              return (
-                <Search
-                  translation={ this.state.translation }
-                  setTranslation={ (data) => this.setTranslation(data) }
-                />
-              )
-            }}
-          />
-        </main>
-      </div>
-    </Router>
+    <div>
+      <nav>
+        <h1>React Translator</h1>
+        <Link to="/search">Search</Link>
+      </nav>
+      <main>
+        <Route
+          path='/search'
+          render={() => (
+            <Search
+              translation={ this.state.translation }
+              setTranslation={ (data) => this.setTranslation(data) }
+            />
+          )}
+        />
+      </main>
+    </div>
   )
 }
 ```
-> Notice that we are writing an anonymous callback function in the value for the `Route`'s render property. This callback function must `return` a react component.
+> Notice that we are writing an anonymous callback function in the value for the `Route`'s render property. This callback function **must return a react component**.
 
 > So long as we use an ES6 arrow function, this callback will preserve context, allowing us to pass down data and functions into `Search` from `App`. You can use an ES5 anonymous function, but you will then need to use `.bind()` to preserve context.
 
-## You do: Set up React Router and Add a Second Route (15 min / 1:05)
+## You do: Set up React Router and Add a Second Route (15 min / 0:55)
 > 10 minute exercise / 5 minute review
 
 - Using the above instructions as a guide, set up React Router in your own application.
@@ -223,9 +186,8 @@ To setup a `Link` and matching `Route`...
 ```js
 // src/components/App/App.js
 
-render() {
+render () {
   return(
-    <Router>
       <div>
         <nav>
           <h1>React Translator</h1>
@@ -234,25 +196,21 @@ render() {
         </nav>
         <main>
           <Route
-            path="/search"
-            render={() => {
-              return (
-                <Search
+            path='/search'
+            render={() => (
+              <Search
                 translation={ this.state.translation }
                 setTranslation={ (data) => this.setTranslation(data) }
-                />
-              )
-            }}
+              />
+            )}
           />
           <Route
-            path="/results"
-            render={() => {
-              return (
-                <Results
-                  translation={ this.state.translation }
-                />
-              )
-            }}
+            path='/results'
+            render={() => (
+              <Results
+                translation={ this.state.translation }
+              />
+            )}
           />
         </main>
       </div>
@@ -264,7 +222,7 @@ render() {
 </details>
 
 
-## I do: Redirecting (15 min / 1:20)
+## I Do: Redirecting (15 min / 1:10)
 
 Currently, we have to manually click on `/results` after submitting a search to render the `Results` component and see the translation. Let's use React Router to force a redirect to `/results` once the search is finished. To do so, we need to use the `history` API that is included as a dependency of React Router.
 
@@ -274,19 +232,16 @@ The `history` object is provided automatically via props from `Router`. To expos
 // src/components/App/App.js
 
 <Route
-  path="/search"
-  render={(props) => {
-    return (
-      <Search
+  path='/search'
+  render={(props) => (
+    <Search
       {...props}
-      translation={ this.state.translation }
       setTranslation={ (data) => this.setTranslation(data) }
-      />
-    )
-  }}
+    />
+  )}
 />
 ```
-> The `...` (spread operator) is allowing us to "destructure" the props object being passed by `Router` and apply each of its properties as props on the `Search` component. To see what exactly the `props` object is here, you can add a `console.log` within the callback function of `Route`'s render prop.
+> The `...` (spread operator) is allowing us to "destructure" the props object being passed by `Router` and apply each of its properties as props on the `Search` component.
 
 
 Now that we have passed the `history` object down to `Search` via props, we can use it to programmatically set the url path from within `Search` thereby causing `Results` to be rendered:
@@ -315,7 +270,7 @@ handleSearchSubmit(e) {
 > Note that we are calling `this.prop.history.push()` within `.then()` so that we don't redirect before the response has come back from the Watson API.
 
 
-## You do: Expose and Use the History Object to Redirect (20 min / 1:40)
+## You Do: Expose and Use the History Object to Redirect (20 min / 1:30)
 > 15 min exercise / 5 min review
 
 Using the instructions above as a guide, expose and pass the `history` object to `Search` and set-up your own app to redirect to `Results` when a user submits a search.
@@ -333,15 +288,13 @@ First, we need to pass `history` into `Results` just like we did with `Search`:
 // src/components/App/App.js
 
 <Route
-  path="/results"
-  render={(props) => {
-    return (
-      <Results
-        {...props}
-        translation={ this.state.translation }
-      />
-    )
-  }}
+  path='/results'
+  render={(props) => (
+    <Results
+      {...props}
+      translation={ this.state.translation }
+    />
+  )}
 />
 ```
 
@@ -363,7 +316,7 @@ componentDidMount () {
 ## Break (10 min / 1:50)
 
 
-## We do: Using the Redirect Component (15 min / 2:05)
+## We Do: Using the Redirect Component (15 min / 1:55)
 Another edge case we want to control for is when the user submits a request at a url that we have not set up a `Route` for. To handle this, React Router provides a `Redirect` component that when returned, tells the browser to change the url to that of one of our recognized routes:
 
 
@@ -373,7 +326,6 @@ To import the `Redirect` component, update your `import` statement in `App.js` a
 // src/components/App/App.js
 
 import {
-  BrowserRouter as Router,
   Route,
   Link,
   Redirect
@@ -386,16 +338,14 @@ Then set up a catch-all `Route` in `App`'s render method that will render it. Ma
 // src/components/App/App.js
 
 <Route
-  path="/*"
-  render={() => {
-    return (
-      <Redirect to="/search" />
-    )
-  }}
+  path='/*'
+  render={() => (
+    <Redirect to='/search' />
+  )}
 />
 ```
 
-Once we refresh the page, we will see an error in the console saying that we are trying to redirect to the same route that we are currently on. This is because, by default, React Router is checking **ALL** of our routes for matches with the url and then rendering any matching `Route` components independently. To force React Router to treat our routes as unique and **only** render the first matching route, we need to use the `Switch` component:
+Once we refresh the page, we will see an error in the console saying that we are trying to redirect to the same route that we are currently on. This is because, by default, React Router is checking **ALL** of our routes for matches with the url and then rendering **ANY** matching `Route` components independently. To force React Router to treat our routes as unique and **ONLY** render the first matching route, we need to use the `Switch` component:
 
 First, import it from `react-router-dom`:
 
@@ -403,7 +353,6 @@ First, import it from `react-router-dom`:
 // src/components/App/App.js
 
 import {
-  BrowserRouter as Router,
   Route,
   Link,
   Redirect,
@@ -418,34 +367,28 @@ Then, wrap **ALL** of our `Route` components within a `Switch` component:
 
 <Switch>
   <Route
-    path="/search"
-    render={(props) => {
-      return (
-        <Search
+    path='/search'
+    render={(props) => (
+      <Search
         {...props}
         setTranslation={ (data) => this.setTranslation(data) }
-        />
-      )
-    }}
+      />
+    )}
   />
   <Route
-    path="/results"
-    render={(props) => {
-      return (
-        <Results
-          {...props}
-          translation={ this.state.translation }
-        />
-      )
-    }}
+    path='/results'
+    render={(props) => (
+      <Results
+        {...props}
+        translation={ this.state.translation }
+      />
+    )}
   />
   <Route
-    path="/*"
-    render={() => {
-      return (
-        <Redirect to="/search" />
-      )
-    }}
+    path='/*'
+    render={() => (
+      <Redirect to='/search' />
+    )}
   />
 </Switch>
 
@@ -454,7 +397,62 @@ Then, wrap **ALL** of our `Route` components within a `Switch` component:
 Now, when we submit a random url, React Router successfully redirects us, but not when we submit a recognized url.
 
 
-## We do: Add Pronunciation Fetching to the Results Component (20 min / 2:25)
+## I Do: Sub-Routes (15 minutes / 2:10)
+
+At any one of our current routes, we may want to add sub-routes to access auxiliary views. The way we do this in React is to simply repeat the pattern we used in `App` (using `Link` and `Route`) inside any component that will have child routes. For example, if inside the `Results` component, we wanted to have conditional rendering of a `Share` component based on the url, we could set it up like so:
+
+```js
+// src/components/Share/Share.js
+
+import React, { Component } from 'react'
+
+class Share extends Component {
+  render () {
+    return (
+      <div>
+        <h2>Share on Facebook</h2>
+        <button>Share</button>
+      </div>
+    )
+  }
+}
+
+export default Share
+```
+
+Then to set it up in `Results`:
+
+```js
+import Share from '../Share/Share'
+import {
+  Link,
+  Route
+} from 'react-router-dom'
+
+// ...
+
+  render () {
+    return (
+      <div>
+        <h1>Translation:</h1>
+        <p>{ this.props.translation }</p>
+        <Link to={`${this.props.match.url}/share`}>Share</Link>
+        <Route
+          path={`${this.props.match.url}/share`}
+          component={Share}
+        />
+      </div>
+    )
+  }
+```
+
+## You Do: Set Up a Sub-Route in Results (10 minutes / 2:20)
+
+Now it's your turn. Set up a sub-route of your own in `Results` using the pattern described above. It can be for a `Share` sub-route or any other view. 
+
+## Closing / Questions (10 min)
+
+## Bonus: Add Pronunciation Fetching to the Results Component (20 min / 2:15)
 
 Wouldn't it be cool if, in addition to showing the text translation, our app could also provide an audio translation with the words being pronounced? Fortunately, the Watson API also provides a [Text-to-Speech](https://watson-api-explorer.mybluemix.net/apis/text-to-speech-v1) service for this purpose. By combining this with the react lifecycle method we saw earlier, we can have the `Results` component automatically fetch this audio for us and then render it.
 
@@ -518,7 +516,7 @@ We also will need to add this second argument to the callback we pass to `Search
     return (
       <Search
       {...props}
-      setTranslation={ (data, language ) => this.setTranslation(data, language ) }
+      setTranslation={ (data, language ) => this.setTranslation(data, language) }
       />
     )
   }}
@@ -629,5 +627,3 @@ render () {
 ```
 
 Now when we submit a search, it automatically loads in the audio pronunciation along with the translation!
-
-## Closing / Questions (10 min)
