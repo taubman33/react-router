@@ -1,7 +1,6 @@
-<div align="center">
-  <img src="react-router-logo.png" />
-  <h1 align="center">React Router</h1>
-</div>
+# React Router
+
+![React Router Logo](./react-router-logo.png)
 
 ## Learning Objectives
 
@@ -29,12 +28,12 @@ npm run start
 
 Take 10 minutes and read through the code to familiarize yourself with the codebase with a partner, or in groups of 3. Prepare to discuss your answers the following questions:
 
-1.  What dependencies is the application currently using? Where can I find information on them?
-2.  What is the purpose of `ReactDOM.render()`? What file is this method being called in?
-3.  Where are the components of our application located? Why might we want to separate them into their own folders?
-4.  Where is state(s) located in our application? How is state being passed down to other components?
-5.  Is data flowing up from child components to parent components anywhere in our application? How is this happening?
-6.  Where is our application getting data from? How is it accomplishing this?
+1. What dependencies is the application currently using? Where can I find information on them?
+2. What is the purpose of `ReactDOM.render()`? What file is this method being called in?
+3. Where are the components of our application located? Why might we want to separate them into their own folders?
+4. Where is state(s) located in our application? How is state being passed down to other components?
+5. Is data flowing up from child components to parent components anywhere in our application? How is this happening?
+6. Where is our application getting data from? How is it accomplishing this?
 
 ## Axios & Watson API (5 min / 0:30)
 
@@ -50,7 +49,7 @@ Currently, we are rendering the response from Watson's Language Translator API s
 
 First, we need to install `react-router-dom` and save it as a dependency to `package.json`...
 
-```
+```sh
 npm install --save react-router-dom
 ```
 
