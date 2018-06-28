@@ -40,54 +40,13 @@ Take 10 minutes and read through the code to familiarize yourself with the codeb
 4. Where is state located in our application? Is state being passed down to other components?
 5. Where is our application getting data from? How is it accomplishing this?
 
----
-
-think about what we want to accomplish based on what we have so far
-we have 4 components. in one sentence, what does each do?
-
-* app.js
-* home.js
-* price.js
-* currencies.js
-
-let's establish some goals:
-
-* be able to display each of the components
-* use that list of currencies to:
-  * pass a value into the price component
-  * have the price component do its ajax call for us
-
-/install react-router react-router-dom
-/import browserRouter in index.js
-/configure reactDom.render to use router
-
-look at app.js now
-import link, route
-we do: define a route to home, add link to /
-you do: define a route to point to /currencies component, add link in navbar
-you do: add switch component around routes
-
-talk about order of route matching
-
-we do: modify currencies component to use Link instead of anchor
-you do: define a route for price component 
-
-talk about params
-talk about difference between `render` and `component` in route
-
-fix route component with params, render, passing props in
-talk about spread operator
-
----
-
-
 ## We Do: React Router Setup (10 min / 0:40)
 
 Currently, we are rendering just the App component, which renders the Home component. Let's bring in React Router and set it up to allow us to display multiple components
 
 ### Importing Dependencies
 
-First, we need to install `react-router` and `react-router-dom` as dependencies in `package.json`. Running `npm install` should automatically do this for us.
+First, we need to install `react-router` and `react-router-dom` as dependencies in `package.json`. Running `npm install` with arguments should automatically do this for us.
 
 ```sh
 npm install react-router react-router-dom
@@ -109,7 +68,7 @@ ReactDOM.render(
 );
 ```
 
-> Note that we are aliasing `BrowserRouter` as `Router` here for simplicity
+> Note that we are aliasing `BrowserRouter` as `Router` here for brevity.
 
 By making `Router` the root component of our app, it will pass down several router-specific objects to its child components. Things like current location and url can be accessed or changed. Additionally, in order to use the other routing components provided by React Router, a `Router` parent component is necessary.
 
@@ -145,8 +104,7 @@ render() {
       </nav>
       <main>
         <Route path="" render={}/>
-        // render and component are both options we can use.
-        // we will cover them both
+        // render and component props are two options we can use.
         <Route path="" component={}/>
       </main>
     </div>
@@ -227,10 +185,6 @@ render() {
 ```
 </details>
 
-<!--
-<details>
-<summary>wat</summary>
-</details> -->
 
 Now we've got two components and two routes. Perfect. Let's take a look at our currencies component and see what we need to do to make it work.
 
@@ -267,8 +221,7 @@ Great! Now go back to the page and click the link again, what happens?
 
 ![shia](https://media.giphy.com/media/ujUdrdpX7Ok5W/giphy.gif)
 
-It changes the route for us (notice the URL changing) but we don't have any routes set up to match that. Let's do that now.
-
+It changes the route for us (notice the URL changing) but we don't have any routes set up to match that. Let's do that next.
 
 ## Break (10 min / 1:05)
 
@@ -406,9 +359,9 @@ Since we're not using switch right now, we'll see something like this:
 
 ![preswitch](./images/pre-switch.png)
 
-There are two components stacked on top of each other! That's silly.
+There are two components stacked on top of each other! The Home and the Currencies component. That's silly.
 
-> Ask class: Why does this happen?
+> Why does this happen?
 
 There are two ways to handle this: using the Switch component, or specifying `exact` on routes.
 
@@ -491,4 +444,33 @@ So easy!
 
 ## Wrapping up (remainder of class)
 
-Build something.
+Here's a rough outline of how you should go about building react apps! Follow these suggestions, or don't, but they wil probably help you a lot if you do them in order. I suggest reading the whole thing before you start so you can have an idea of what the process looks like.
+
+Start a new app using create-react-app. Call it user-router or something like that, it doesnt matter.
+
+Build 4 components (not including the root App.js). Each one will render something different:
+
+| Component | Renders | Route | 
+|--|--|--|
+| Home | "This is the homepage" | / |
+| Greet | A greeting from a url parameter passed in | /greet/:param | 
+| Users | A list of users | /users/ | 
+| NewUser | A form that lets you add a username | /users/new |
+
+Set up react-router like we did in this lesson, at the top level.
+
+Build out the components with placeholders to render stuff before starting to add any state, props, or functionality.
+
+Set up your routes so that each route only displays the appropriate component.
+
+Plan out where you think your state should live. If you have to share state between multiple components, what's the best place to keep it? 
+
+Think about what your state needs to contain.
+
+Initialize your state and pass it down to the appropriate components.
+
+Wire up those components to be able to display and update the state as necessary.
+
+Add the functionality to have the greet component receive and display a parameter.
+
+Marvel at your creation and your progress after only 7 weeks of programming!
