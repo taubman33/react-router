@@ -63,10 +63,10 @@ import { BrowserRouter as Router } from "react-router-dom"
 //...
 
 ReactDOM.render(
-	<Router>
-		<App />
-	</Router>,
-	document.getElementById("root")
+  <Router>
+    <App />
+  </Router>,
+  document.getElementById("root")
 )
 ```
 
@@ -256,8 +256,8 @@ We've got a function in this (`App.js`) component called setPrice. let's pass th
 
 ```jsx
 <Route
-	path="/price/:currency"
-	render={() => <Price setPrice={this.setPrice} />}
+  path="/price/:currency"
+  render={() => <Price setPrice={this.setPrice} />}
 />
 ```
 
@@ -265,8 +265,8 @@ We also have to pass our URL parameter into `<Price />`. This is where the arrow
 
 ```jsx
 <Route
-	path="/price/:currency"
-	render={routerProps => <Price setPrice={this.setPrice} {...routerProps} />}
+  path="/price/:currency"
+  render={routerProps => <Price setPrice={this.setPrice} {...routerProps} />}
 />
 ```
 
@@ -276,10 +276,10 @@ Finally, we need to pass in the current component's state. We can also use the s
 
 ```jsx
 <Route
-	path="/price/:currency"
-	render={routerProps => (
-		<Price setPrice={this.setPrice} {...routerProps} {...this.state} />
-	)}
+  path="/price/:currency"
+  render={routerProps => (
+    <Price setPrice={this.setPrice} {...routerProps} {...this.state} />
+  )}
 />
 ```
 
@@ -287,11 +287,68 @@ Finally, we need to pass in the current component's state. We can also use the s
 
 The `...` syntax looks funny, so let's step aside and show you something that might be more familiar.
 
+Open up quokka or your favorite interactive javascript environment and follow along.
+
+Let's start with two objects with a few properties in them.
+
+```js
+let shed = {
+  color: "red",
+  spiders: true,
+  contains: ["lawnmower", "dirt", "flashlight"]
+}
+
+let house = {
+  doors: 3,
+  garage: true
+}
+```
+
+Using the spread operator we can unpack the values in shed, and place all the values into another object.
+
+Let's rewrite this a bit.
+
+```js
+let shed = {
+  color: "red",
+  spiders: true,
+  contains: ["lawnmower", "dirt", "flashlight"]
+}
+
+let house = {
+  doors: 3,
+  garage: true,
+  ...shed
+}
+
+console.log(house)
+//​ ​​​​{
+//   doors: 3,​​​​​
+//   garage: true,​​​​​
+//​​ ​​​  color: 'red',​​​​​
+//​ ​​​​  spiders: true,​​​​​
+//​ ​​​​  contains: [ 'lawnmower', 'dirt', 'flashlight' ]
+// }​​​​​
+```
+
+We can do the same thing with arrays.
+
+```js
+let contains = ["lawnmower", "dirt", "flashlight"]
+
+let items = ["banana", ...contains]
+
+console.log(items)
+// ['banana', 'lawnmower', 'dirt', 'flashlight']
+```
+
+Now let's apply this to the router!
+
 We know what our state object looks like, so we can use that as an example.
 
 ```js
 this.state = {
-	price: null
+  price: null
 }
 ```
 
@@ -301,19 +358,19 @@ This turns into:
 <Price price={this.state.price} />
 ```
 
-If we use the react dev tools, we can what props have been passed down from the `routerProps` object.
+If we use the react dev tools, we can see what props have been passed down from the `routerProps` object.
 
 ```js
 let routerProps = {
-	history: {
-		/* stuff in here */
-	},
-	location: {
-		/* stuff in here */
-	},
-	match: {
-		/* stuff in here */
-	}
+  history: {
+    /* stuff in here */
+  },
+  location: {
+    /* stuff in here */
+  },
+  match: {
+    /* stuff in here */
+  }
 }
 ```
 
@@ -383,11 +440,7 @@ Let's look at our routes in `App.js` again:
 Try putting `exact` on the `/` path route component.
 
 ```js
-<Route 
-  path="/" 
-  exact 
-  component={Home} 
-/>
+<Route path="/" exact component={Home} />
 ```
 
 > Note: this is equivalent to putting `exact=true`
