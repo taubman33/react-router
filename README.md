@@ -32,7 +32,7 @@ Also, install the [React developer tools](https://chrome.google.com/webstore/det
 
 ## You Do: Examine Current Codebase (15 min / 0:30)
 
-Since we're starting off with a project that already has some scaffolding out, we should spend some time getting our bearings.
+Since we're starting off with a project that already has some scaffolding built out, we should spend some time getting our bearings.
 
 Take 10 minutes and read through the code to familiarize yourself with the codebase with a partner or in groups of 3. Prepare to discuss your answers the following questions:
 
@@ -234,7 +234,7 @@ Back in `App.js`, we need to add another `<Route>` component. This time though, 
 
 Look at the URL that we're on after clicking on a currency. Then look at the Price component. How might you write the `path` prop to make it work?
 
-> Hint: This part is just like defining a route in express.
+> Hint: This part is just like defining a route with a param in express.
 
 ## We do: Fix prices component (25 min / 1:40)
 
@@ -304,7 +304,7 @@ let house = {
 }
 ```
 
-Using the spread operator we can unpack the values in shed, and place all the values into another object.
+Using the spread operator we can unpack the values in shed and place them all into another object.
 
 Let's rewrite this a bit.
 
@@ -384,7 +384,7 @@ So if we spread the routerProps object, we'll get something like this:
 >
 ```
 
-Putting it all together, we turn this:
+Putting it all together, using the spread operator turns this:
 
 ```jsx
 <Price setPrice={this.setPrice} {...routerProps} {...this.state} />
