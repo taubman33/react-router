@@ -40,7 +40,8 @@ Take 10 minutes and read through the code to familiarize yourself with the codeb
 2. What is the purpose of `ReactDOM.render()`? What file is this method being called in?
 3. Where are the components of our application located? Why might we want to separate them into their own folders?
 4. Where is state located in our application? Is state being passed down to other components?
-5. Where is our application getting data from? How is it accomplishing this?
+5. Look at the Price component. What props is it expecting to be passed?
+6. Where is our application getting data from? How is it accomplishing this?
 
 ## We Do: React Router Setup (10 min / 0:40)
 
@@ -92,7 +93,7 @@ Let's go ahead and import just route and link for now, we'll cover switch later.
 import { Route, Link } from "react-router-dom"
 ```
 
-Now that we have access to these components, we need to modify the `App` component's `render()` method to set up navigation. The basic structure we will use is...
+Now that we have access to these components, we need to modify the `App` component's `render()` method to set up navigation. The basic structure we will use is this:
 
 ```jsx
 // src/components/App/App.js
@@ -101,12 +102,14 @@ render() {
   return (
     <div>
       <nav>
+      // the link component produces an a element
         <Link to=""></Link>
         <Link to=""></Link>
       </nav>
       <main>
+        // routes render the specified component we pass in
         <Route path="" render={}/>
-        // render and component props are two options we can use.
+        // we can give either a render or a component prop.
         <Route path="" component={}/>
       </main>
     </div>
@@ -177,7 +180,7 @@ render() {
           component={Home}
         />
         <Route path="/currencies"
-          component={() => <Currencies />}
+          component={Currencies}
         />
       </main>
     </div>
@@ -195,7 +198,7 @@ If we look at this component we see a long list of links. Note that the links ar
 
 What happens if we click on a link? It works, but the whole page reloads! Gross. Let's fix that.
 
-Go ahead and replace the a tag with a `<Link>` component. Make the `to` prop value equal to the `href` value.
+Go ahead and replace the `a` tag with a `<Link>` component. Make the `to` prop value equal to the `href` value.
 
 ```jsx
 // src/Components/Currencies/Currencies.js
@@ -232,7 +235,7 @@ It changes the route for us (notice the URL changing) but we don't have any rout
 
 Back in `App.js`, we need to add another `<Route>` component. This time though, we want to include a parameter.
 
-Look at the URL that we're on after clicking on a currency. Then look at the Price component. How might you write the `path` prop to make it work?
+Look at the URL that we're on after clicking on a currency. Then look at the `Price` component. How might you write the `path` prop to make it work?
 
 > Hint: This part is just like defining a route with a param in express.
 
@@ -495,6 +498,21 @@ render() {
 So easy!
 
 ![shia](https://media.giphy.com/media/ujUdrdpX7Ok5W/giphy.gif)
+
+## Redirects
+
+Redirects using react router are incredibly easy. Redirect is just another component we can import and use by passing it a few props.
+
+* Import the `Redirect` component from `react-router-dom`
+* Add another route called `/currency` 
+* Instead of rendering one of our components, put the `Redirect` component.
+
+```js
+<Route path="/currency" render={() => <Redirect to="/currencies" />} />
+```
+
+Redirect only requires a `to` prop which tells it what path to redirect to.
+
 
 ## Wrapping up (remainder of class)
 
