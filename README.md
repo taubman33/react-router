@@ -245,6 +245,9 @@ render() {
 Now we've got two components and two routes. Perfect. Let's take a look at our
 currencies component and see what we need to do to make it work.
 
+This a good point to talk about React Router's
+[Route Props](https://reacttraining.com/react-router/web/api/Route/route-props).
+
 ## We do: Currencies component (5 min / 0:55)
 
 If we look at this component we see a long list of links. Note that the links
