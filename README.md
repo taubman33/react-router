@@ -71,7 +71,11 @@ following questions:
 
 Currently, we are rendering just the App component, which renders the Home
 component. Let's bring in React Router and set it up to allow us to display
-multiple components
+multiple components.
+
+When working with a new library, it's useful to have
+[the documentation](https://reacttraining.com/react-router/web/guides/quick-start)
+handy!
 
 ### Importing Dependencies
 
