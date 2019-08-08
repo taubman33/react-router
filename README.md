@@ -4,7 +4,7 @@
 
 ## Learning Objectives
 
-- Use React Router's `BrowserRouter`, `Link`, `Route`, `Redirect`, and `Switch`
+- Use React Router's `BrowserRouter`, `Link`, `Route` and `Redirect`
   components to add navigation to a React application
 - Review the React component lifecycle and use component methods to integrate
   with API calls
@@ -123,10 +123,10 @@ The three main ones we're going to use today are:
 ```jsx
 <Route />
 <Link />
-<Switch />
+<Redirect />
 ```
 
-Let's go ahead and import just route and link for now, we'll cover switch later.
+Let's go ahead and import just route and link for now, we'll cover redirect later.
 
 ```js
 // src/components/App/App.js
