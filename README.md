@@ -594,18 +594,16 @@ component we can import and use by passing it a few props.
 
 Redirect only requires a `to` prop which tells it what path to redirect to.
 
-## Wrapping up (remainder of class)
+## Wrapping Up (Remainder of Class)
 
 Here's a rough outline of how you should go about building react apps! Follow
-these suggestions, or don't, but they wil probably help you a lot if you do them
-in order. I suggest reading the whole thing before you start so you can have an
-idea of what the process looks like.
+these suggestions, or don't, but they will probably help you a lot if you do them
+in order. I suggest reading through all of the steps before you start so you can 
+become familiar with the big picture of the entire process.
 
-Start a new app using create-react-app. Call it user-router or something like
-that, it doesn't matter.
-
-Build 4 components (not including the root App.js). Each one will render
-something different:
+1. Start a new app using `create-react-app`. Call it user-router or something similar, 
+it doesn't matter. You will be building four components (not including App.js). 
+Each one will render something different:
 
 | Component | Renders                                   | Route         |
 | --------- | ----------------------------------------- | ------------- |
@@ -614,24 +612,22 @@ something different:
 | Users     | A list of users                           | /users/       |
 | NewUser   | A form that lets you add a username       | /users/new    |
 
-Set up react-router like we did in this lesson, at the top level.
+1. Set up `react-router` like we did in this lesson, at the top level. What 
+is the top level of a React app?
 
-Build out the components with placeholders to render stuff before starting to
-add any state, props, or functionality.
+1. Build out each component with placeholders to render something. Do this first, before 
+starting to add state, props, or functionality.
 
-Set up your routes so that each route only displays the appropriate component.
+1. Set up your routes so that each route only displays the appropriate component.
 
-Plan out where you think your state should live. If you have to share state
-between multiple components, what's the best place to keep it?
+1. Plan out where you think your state should live. If you have to share state
+between multiple components, what's the best place to keep it? Think about what your 
+state needs to contain.
 
-Think about what your state needs to contain.
+1. Initialize your state and pass it down to the appropriate components.
 
-Initialize your state and pass it down to the appropriate components.
-
-Wire up those components to be able to display and update the state as
-necessary.
-
-Add the functionality to have the greet component receive and display a
+1. Wire up those components to be able to display and update the state as
+necessary. Add the functionality to have the greet component receive and display a
 parameter.
 
-Marvel at your creation and your progress after only 7 weeks of programming!
+1. Marvel at your creation and your progress after only 7 weeks of programming!
