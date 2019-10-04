@@ -30,7 +30,7 @@ url. This way we don't have to reload the entire page to swap out some data.
 Don't confuse it with the express router! They do different things, though they
 both operate based on paths.
 
-## We Do: [React Bitcoin Prices](https://git.generalassemb.ly/dc-wdi-react-redux/react-bitcoin-prices) Setup (5 min / 0:10)
+## We Do: [React Bitcoin Prices](https://git.generalassemb.ly/seir-826/react-bitcoin-prices) Setup (5 min / 0:10)
 
 Let's get set up with the react bitcoin price checker!
 
