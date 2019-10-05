@@ -10,7 +10,7 @@
   with API calls
 - Talk about SPAs
 
-## Framing (5 min / 0:05)
+## Framing
 
 Up to this point, our React applications have been limited in size, allowing us
 to use basic control flow in our components' render methods to determine what
@@ -30,11 +30,11 @@ url. This way we don't have to reload the entire page to swap out some data.
 Don't confuse it with the express router! They do different things, though they
 both operate based on paths.
 
-## We Do: [React Bitcoin Prices](https://git.generalassemb.ly/seir-826/w08d03-react-bitcoin-prices) Setup (5 min / 0:10)
+## We Do: [React Bitcoin Prices](https://git.generalassemb.ly/seir-826/w08d03-react-bitcoin-prices) Setup
 
 Let's get set up with the react bitcoin price checker!
 
-## You Do: Axios & Coindesk API (5 min / 0:15)
+## You Do: Axios & Coindesk API
 
 We will be using [Axios](https://github.com/axios/axios) to query the Coindesk
 API in this exercise. Take 5 minutes to read and test out (using postman or the
@@ -47,7 +47,7 @@ Also, install the
 chrome extension if you haven't already. It'll come in very handy for inspecting
 components.
 
-## You Do: Examine Current Codebase (15 min / 0:30)
+## You Do: Examine Current Codebase (~15 min)
 
 Since we're starting off with a project that already has some scaffolding built
 out, we should spend some time getting our bearings.
@@ -67,7 +67,7 @@ following questions:
 5. Look at the Price component. What props is it expecting to be passed?
 6. Where is our application getting data from? How is it accomplishing this?
 
-## We Do: React Router Setup (10 min / 0:40)
+## We Do: React Router Setup (~10 min)
 
 Currently, we are rendering just the App component, which renders the Home
 component. Let's bring in React Router and set it up to allow us to display
@@ -200,7 +200,7 @@ Also, note that we used `component` in this case to display our home component.
 We're doing that because we just want to display it without any changes - we're
 not passing any props in, we're not modifying anything.
 
-## You do: Add a Second Route and Link (10 min / 0:50)
+## You do: Add a Second Route and Link (~10 min)
 
 > 5 minute exercise / 5 minute review
 
@@ -248,7 +248,7 @@ currencies component and see what we need to do to make it work.
 This a good point to talk about React Router's
 [Route Props](https://reacttraining.com/react-router/web/api/Route/route-props).
 
-## We do: Currencies component (5 min / 0:55)
+## We do: Currencies component
 
 If we look at this component we see a long list of links. Note that the links
 are using regular `<a>` tags.
@@ -287,9 +287,9 @@ Great! Now go back to the page and click the link again, what happens?
 It changes the route for us (notice the URL changing) but we don't have any
 routes set up to match that. Let's do that next.
 
-## Break (10 min / 1:05)
+## Break (10 min)
 
-## You do: Prices Component (10 min / 1:15)
+## You do: Prices Component (~10 min)
 
 > 5 min exercise, 5 min review
 
@@ -301,7 +301,7 @@ Look at the URL that we're on after clicking on a currency. Then look at the
 
 > Hint: This part is just like defining a route with a param in express.
 
-## We do: Fix prices component (25 min / 1:40)
+## We do: Fix prices component (~25 min)
 
 We've added a route but not everything will work yet. HOW COME!?
 
@@ -484,7 +484,7 @@ Super cool right?
 We still have some weird display quirks, and for that, we'll use `<Switch>` to
 fix them.
 
-## Using exact (10 min / 1:50)
+## Using exact (~10 min)
 
 exact works just like the switch/case statements in javascript. We're comparing
 string values (in this case, routes) and executing conditions (rendering
