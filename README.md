@@ -19,9 +19,15 @@ scope, we need an easier and more robust way of rendering different components.
 Additionally, we will want the ability to set information in the url parameters
 to make it easier for users to identify where they are in the application.
 
-React Router, while not the only, is the most commonly-used routing library for
-React. It is relatively straightforward to configure and integrates with the
-component architecture nicely (since it's just a collection of components).
+React Router allows us to build single-page web applications with navigation 
+without having to rely on page refreshes to take the user to other pages(thereby
+avoiding the flash of a white screen). The result is a more seamless user experience
+as the user navigates through the app.
+
+React Router is one of the most commonly-used routing libraries for
+client-side routing with React. It is relatively straightforward to configure 
+and integrates with the component architecture nicely (since it's just a collection
+of components).
 
 We will configure it as the root component in a React application. Then we'll
 tell it to render other components within itself depending on the path in the
@@ -29,6 +35,7 @@ url. This way we don't have to reload the entire page to swap out some data.
 
 Don't confuse it with the express router! They do different things, though they
 both operate based on paths.
+
 
 ## We Do: [React Bitcoin Prices](https://git.generalassemb.ly/seir-826/w08d03-react-bitcoin-prices) Setup
 
