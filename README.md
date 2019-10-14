@@ -341,152 +341,20 @@ function comes in to play.
 ```jsx
 <Route
   path="/price/:currency"
-  render={routerProps => <Price setPrice={this.setPrice} {...routerProps} />}
+  render={routerProps => <Price setPrice={this.setPrice} match={routerProps.match} />}
 />
 ```
 
-> The `...` (spread operator) is allowing us to "destructure" the props object
-> being passed by `Router` and apply each of its key/value pairs as props on the
-> `Price` component.
-
-Finally, we need to pass in the current component's state. We can also use the
-spread operator for that.
+Finally, we need to pass in the current component's price state.
 
 ```jsx
 <Route
   path="/price/:currency"
   render={routerProps => (
-    <Price setPrice={this.setPrice} {...routerProps} {...this.state} />
+    <Price setPrice={this.setPrice} match={routerProps.match} price = {this.state.price} />
   )}
 />
 ```
-
-### Spread explained
-
-The `...` syntax looks funny, so let's step aside and show you something that
-might be more familiar.
-
-Open up quokka or your favorite interactive javascript environment and follow
-along.
-
-Let's start with two objects with a few properties in them.
-
-```js
-let shed = {
-  color: "red",
-  spiders: true,
-  contains: ["lawnmower", "dirt", "flashlight"]
-};
-
-let house = {
-  doors: 3,
-  garage: true
-};
-```
-
-Using the spread operator we can unpack the values in shed and place them all
-into another object.
-
-Let's rewrite this a bit.
-
-```js
-let shed = {
-  color: "red",
-  spiders: true,
-  contains: ["lawnmower", "dirt", "flashlight"]
-};
-
-let house = {
-  doors: 3,
-  garage: true,
-  ...shed
-};
-
-console.log(house);
-//​ ​​​​{
-//   doors: 3,​​​​​
-//   garage: true,​​​​​
-//​​ ​​​  color: 'red',​​​​​
-//​ ​​​​  spiders: true,​​​​​
-//​ ​​​​  contains: [ 'lawnmower', 'dirt', 'flashlight' ]
-// }​​​​​
-```
-
-We can do the same thing with arrays.
-
-```js
-let contains = ["lawnmower", "dirt", "flashlight"];
-
-let items = ["banana", ...contains];
-
-console.log(items);
-// ['banana', 'lawnmower', 'dirt', 'flashlight']
-```
-
-Now let's apply this to the router!
-
-We know what our state object looks like, so we can use that as an example.
-
-```js
-this.state = {
-  price: null
-};
-```
-
-This turns into:
-
-```js
-<Price price={this.state.price} />
-```
-
-If we use the react dev tools, we can see what props have been passed down from
-the `routerProps` object.
-
-```js
-let routerProps = {
-  history: {
-    /* stuff in here */
-  },
-  location: {
-    /* stuff in here */
-  },
-  match: {
-    /* stuff in here */
-  }
-};
-```
-
-So if we spread the routerProps object, we'll get something like this:
-
-```js
-<Price
-  history={ /* stuff in here */ }
-  location={ /* stuff in here */ }
-  match={ /* stuff in here */ }
->
-```
-
-Putting it all together, using the spread operator turns this:
-
-```jsx
-<Price setPrice={this.setPrice} {...routerProps} {...this.state} />
-```
-
-Into this:
-
-```jsx
-<Price
-  setPrice={this.setPrice}
-  history={ /* stuff in here */ }
-  location={ /* stuff in here */ }
-  match={ /* stuff in here */ }
-  price={this.state.price}
-/>
-```
-
-Super cool right?
-
-![shia](https://media.giphy.com/media/ujUdrdpX7Ok5W/giphy.gif)
 
 We still have some weird display quirks, and for that, we'll use `<Switch>` to
 fix them.
