@@ -387,7 +387,7 @@ Let's look at our routes in `App.js` again:
 />
 <Route
   path="/price/:currency"
-  render={(routerProps) => <Price setPrice={this.setPrice} {...routerProps} {...this.state} /> }
+  render={(routerProps) => <Price setPrice={this.setPrice} match={routerProps.match} price = {this.state.price} /> }
 />
 ```
 
