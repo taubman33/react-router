@@ -41,10 +41,9 @@ both operate based on paths.
 
 Let's get set up with the react bitcoin price checker!
 
-## You Do: Axios & Coindesk API
+## You Do: Coindesk API
 
-We will be using [Axios](https://github.com/axios/axios) to query the Coindesk
-API in this exercise. Take 5 minutes to read and test out (using postman or the
+We will query the Coindesk API in this exercise. Take 5 minutes to read and test out (using the
 browser) the API docs below
 
 [Coindesk API](https://www.coindesk.com/api/)
