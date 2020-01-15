@@ -37,7 +37,7 @@ Don't confuse it with the express router! They do different things, though they
 both operate based on paths.
 
 
-## We Do: [React Bitcoin Prices](https://git.generalassemb.ly/seir-826/w08d03-react-bitcoin-prices) Setup
+## We Do: [React Bitcoin Prices](https://git.generalassemb.ly/seir-129/react-bitcoin-prices) Setup
 
 Let's get set up with the react bitcoin price checker!
 
