@@ -4,11 +4,11 @@
 
 ## Learning Objectives
 
-- Use React Router's `BrowserRouter`, `Link`, `Route` and `Redirect`
-  components to add navigation to a React application
+- Talk about SPAs
 - Review the React component lifecycle and use component methods to integrate
   with API calls
-- Talk about SPAs
+- Use React Router's `BrowserRouter`, `Link`, `Route` and `Redirect`
+  components to add navigation to a React application
 
 ## Framing
 
