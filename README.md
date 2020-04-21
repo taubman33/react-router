@@ -465,4 +465,4 @@ state needs to contain.
 necessary. Add the functionality to have the greet component receive and display a
 parameter.
 
-1. Marvel at your creation and your progress after only 7 weeks of programming!
+1. Marvel at your creation and your progress after only 5 weeks of programming!
