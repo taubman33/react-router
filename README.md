@@ -146,8 +146,6 @@ use is this:
 
 ```jsx
 // src/components/App/App.js
-
-render() {
   return (
     <div>
       <nav>
@@ -163,7 +161,6 @@ render() {
       </main>
     </div>
   )
-}
 ```
 
 > **Link** - a component for setting the URL and providing navigation between
@@ -180,8 +177,6 @@ components.
 
 ```jsx
 // src/components/App/App.js
-
-render() {
   return(
     <div>
       <nav>
@@ -197,7 +192,6 @@ render() {
       </main>
     </div>
   )
-}
 ```
 
 Great! But this doesn't do anything because we're already on the homepage.
@@ -222,8 +216,6 @@ not passing any props in, we're not modifying anything.
 import Currencies from '../Currencies/Currencies'
 
 // ...
-
-render() {
   return(
     <div>
       <nav>
@@ -243,7 +235,6 @@ render() {
       </main>
     </div>
   )
-}
 ```
 
 </details>
@@ -270,8 +261,6 @@ value equal to the `href` value.
 import { Link } from 'react-router-dom'
 
 //...
-
-  render() {
     let list = listOfCurrencies.map(item => {
       return (
         <div className="currency" key={item.currency}>
@@ -279,8 +268,6 @@ import { Link } from 'react-router-dom'
         </div>
       )
     })
-  }
-
   // ...
 ```
 
@@ -330,7 +317,7 @@ that in.
 ```jsx
 <Route
   path="/price/:currency"
-  render={() => <Price setPrice={this.setPrice} />}
+  render={() => <Price setPrice={setPrice} />}
 />
 ```
 
@@ -340,7 +327,7 @@ function comes in to play.
 ```jsx
 <Route
   path="/price/:currency"
-  render={routerProps => <Price setPrice={this.setPrice} match={routerProps.match} />}
+  render={routerProps => <Price setPrice={setPrice} match={routerProps.match} />}
 />
 ```
 
@@ -350,7 +337,7 @@ Finally, we need to pass in the current component's price state.
 <Route
   path="/price/:currency"
   render={routerProps => (
-    <Price setPrice={this.setPrice} match={routerProps.match} price = {this.state.price} />
+    <Price setPrice={setPrice} match={routerProps.match} price = {price} />
   )}
 />
 ```
@@ -386,7 +373,7 @@ Let's look at our routes in `App.js` again:
 />
 <Route
   path="/price/:currency"
-  render={(routerProps) => <Price setPrice={this.setPrice} match={routerProps.match} price = {this.state.price} /> }
+  render={(routerProps) => <Price setPrice={setPrice} match={routerProps.match} price={price} /> }
 />
 ```
 
