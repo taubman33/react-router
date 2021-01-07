@@ -35,11 +35,11 @@ We will configure it as the root component in a React application. Then we'll
 tell it to render other components within itself depending on the path in the
 url. This way we don't have to reload the entire page to swap out some data.
 
-Don't confuse it with the express router! They do different things, though they
-both operate based on paths.
+
+As with so many parts of Javascript, we will have to do a few different steps to get the main part working. This includes installing the react router, setting up router in our index.js file, adding routes and links to our app js, and then adding the routes and links in our components. This is going to be tough, but we are going to get through it!
 
 
-## We Do: [React Bitcoin Prices](https://git.generalassemb.ly/sei-921/react-bitcoin-prices) Setup
+## We Do: [React Bitcoin Prices](https://git.generalassemb.ly/SEIR-1130/react-bitcoin-prices) Setup
 
 Let's get set up with the react bitcoin price checker!
 
