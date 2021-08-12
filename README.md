@@ -39,6 +39,159 @@ url. This way we don't have to reload the entire page to swap out some data.
 As with so many parts of Javascript, we will have to do a few different steps to get the main part working. This includes installing the react router, setting up router in our index.js file, adding routes and links to our app js, and then adding the routes and links in our components. This is going to be tough, but we are going to get through it!
 
 
+## Lets create our own React App and try this once before we get into the more advanced steps.
+
+Start off by creating a react app (you can call it React-Routes if you need a name!), and creating 4 additional components: Nav, Home, ComponentA, and ComponentB. You can build these in a "Components" directory if you would like.
+
+We are going to work in a few steps, the first will be adding in the basic RSF Boilerplate code to the 4 new components, then import and render Nav into the App.js component. You can populate Nav.js with some dummy data like 'Nav is working' before we add in the real code. 
+
+## We Do: React Router Setup (~10 min)
+
+Currently, we are rendering just the App component, which renders the Home
+component. Let's bring in React Router and set it up to allow us to display
+multiple components.
+
+When working with a new library, it's useful to have
+[the documentation](https://reacttraining.com/react-router/web/guides/quick-start)
+handy!
+
+### Importing Dependencies
+
+First, we need to install `react-router-dom` as a dependency
+in `package.json`. Running `npm install` or `npm i` with arguments should automatically do
+this for us.
+
+```sh
+npm install react-router-dom
+```
+
+To configure our current application to use React Router, we need to modify the
+root rendering of our app in `index.js`. We need to import the `Router`
+component and place it as the root component of our application. `Router` will,
+in turn, render `App` through which all the rest of our components will be
+rendered:
+
+```jsx
+// index.js
+import { BrowserRouter as Router } from "react-router-dom";
+
+//...
+
+ReactDOM.render(
+  <Router>
+    <App />
+  </Router>,
+  document.getElementById("root")
+);
+```
+
+> Note that we are aliasing `BrowserRouter` as `Router` here for brevity.
+
+By making `Router` the root component of our app, it will pass down several
+router-specific objects to its child components. Things like current location
+and url can be accessed or changed. Additionally, in order to use the other
+routing components provided by React Router, a `Router` parent component is
+necessary.
+
+Next, in `App.js`, we need to import all of the other components we want to use
+from React Router.
+
+The three main ones we're going to use today are:
+
+```jsx
+<Route />
+<Link />
+<Redirect />
+```
+
+Let's go ahead and import just route and link for now, we'll cover redirect later.
+
+```js
+// src/components/App/App.js
+
+import { Route, Link } from "react-router-dom";
+```
+
+Now that we have access to these components, we need to modify the `App`
+component's `render()` method to set up navigation. The basic structure we will
+use is this:
+
+```jsx
+// src/components/App/App.js
+  return (
+    <div>
+      <div className="app-Navbar">
+      <Nav />
+     <div>
+      
+     <div className="app-Main>
+        // routes render the specified component we pass in
+        <Route path="" render={}/>
+        // we can give either a render or a component prop.
+        <Route path="" component={}/>
+     </div>
+      
+    
+    </div>
+  )
+```
+
+While our Nav component will look like this
+
+```js 
+
+     <div className ="Navbar">
+      // the link component produces an a element
+        <Link to=""></Link>
+        <Link to=""></Link>
+      </div>
+      
+```
+
+Next, lets add up some data into our components A and B. You can populate these with dummy data ("this is Component A, "this is component B", "Home") for now.
+
+Now we can get cooking. We have 2 components A and B we are going to link to, as well as a Home component to be our landing page.
+
+In our App.js component, make sure we have all 4 of our new components imported (but only Nav rendered!), and have components A and B imported (but not rendered!) in Nav.js
+
+The first thing we'll want to do is establish our Routes. This tells the computer which Components we should be loading up based on the slug of our URL.
+
+```js
+  <Route exact path="/" component={Home}/>
+  <Route exact path="/A" component={ComponentA}/>
+  <Route exact path="/B" component={ComponentB}/>
+```
+
+Now we have 3 routes: a landing page (Home) and the 2 additional components (A & B). We can access any of these by typing in the slugs in our browser! But having to type everything in each time we want to do something is hardly the most User Friendly experience, so lets add in a Link so that we can navigate through our site with the click of a button!
+
+In Nav, we want to add links to the URL's -> Not the components!
+
+```js
+        <Link to="/"> Home </Link>
+        <Link to="/A"> Component A </Link>
+```  
+
+How do you think we'd link to component B?
+
+We can use almost any element (Text, Div's, Images, Buttons) as feeds for our Links, and of course we can style them accordingly
+
+
+```js
+
+    <Link to="/">
+      <button className="button hoverRed homeButton">
+        <h3> Home <h3>
+      </button>
+    </Link>
+      
+```
+
+
+Now we can link between these 2 new components and the landing page ("home")! This syntax is standard and universal. Now that we can work our way around a page and link between components, lets take a step further by working with a Bitcoin API and see how we can pass props around while linking through the routes of our site. 
+
+## Break and Q & A 
+
+
 ## We Do: [React Bitcoin Prices](https://git.generalassemb.ly/SEI-712/react-bitcoin-prices) Setup
 
 Let's get set up with the react bitcoin price checker!
