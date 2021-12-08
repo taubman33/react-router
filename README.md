@@ -156,9 +156,9 @@ In our App.js component, make sure we have all 4 of our new components imported 
 The first thing we'll want to do is establish our Routes. This tells the computer which Components we should be loading up based on the slug of our URL.
 
 ```js
-  <Route exact path="/" component={Home}/>
-  <Route exact path="/A" component={ComponentA}/>
-  <Route exact path="/B" component={ComponentB}/>
+  <Route exact path="/" render={Home}/>
+  <Route exact path="/A" render={ComponentA}/>
+  <Route exact path="/B" render={ComponentB}/>
 ```
 
 Now we have 3 routes: a landing page (Home) and the 2 additional components (A & B). We can access any of these by typing in the slugs in our browser! But having to type everything in each time we want to do something is hardly the most User Friendly experience, so lets add in a Link so that we can navigate through our site with the click of a button!
