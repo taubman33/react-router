@@ -1,4 +1,3 @@
-## SEIR 712, Aug 12 2021
 
 # React Router
 
