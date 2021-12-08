@@ -61,7 +61,7 @@ in `package.json`. Running `npm install` or `npm i` with arguments should automa
 this for us.
 
 ```sh
-npm install react-router-dom
+npm install react-router-dom@5
 ```
 
 To configure our current application to use React Router, we need to modify the
