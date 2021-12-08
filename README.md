@@ -191,7 +191,7 @@ Now we can link between these 2 new components and the landing page ("home")! Th
 ## Break and Q & A 
 
 
-## We Do: [React Bitcoin Prices](https://git.generalassemb.ly/SEI-712/react-bitcoin-prices) Setup
+## We Do: [React Bitcoin Prices](https://github.com/taubman33/React-router-lab) Setup
 
 Let's get set up with the react bitcoin price checker!
 
